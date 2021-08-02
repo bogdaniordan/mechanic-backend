@@ -13,22 +13,15 @@ import javax.persistence.*;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "brand_name")
     private String brandName;
-
     @OneToOne
     @JoinColumn(name = "id")
     private Mechanic assignedMechanic;
-
     @Enumerated(EnumType.STRING)
     private FuelType fuel;
-
     @Enumerated(EnumType.STRING)
     private RepairedStatus repairedstatus;
-
     @Enumerated(EnumType.STRING)
     private ServiceType requiredservice;
 

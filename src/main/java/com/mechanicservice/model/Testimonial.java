@@ -11,25 +11,16 @@ import javax.persistence.*;
 public class Testimonial {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
-
     @Enumerated(EnumType.STRING)
     private Rating rating;
-
-    @Column(name = "comment")
     private String comment;
-
     @ManyToOne
     private Car car;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "servicetype")
     private ServiceType serviceType;
-
     @ManyToOne
     private Mechanic mechanic;
-
     @ManyToOne
     private Customer customer;
 

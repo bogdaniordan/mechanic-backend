@@ -13,15 +13,10 @@ import javax.persistence.*;
 public class CardDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "card_owner")
     private String cardOwner;
-    @Column(name = "card_number")
     private String cardNumber;
-    @Column(name = "expiration_month")
     private String expirationMonth;
-    @Column(name = "expiration_year")
     private String expirationYear;
 
     public CardDetails(String cardOwner, String cardNumber, String expirationMonth, String expirationYear) {

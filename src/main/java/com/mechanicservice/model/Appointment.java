@@ -14,24 +14,15 @@ import java.time.LocalDate;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
-
     @Enumerated(EnumType.STRING)
     private ServiceType requiredservice;
-
-    @Column(name = "price")
     private int price;
-
     @Column(name = "date")
     private String localDate;
-
-    @Column(name = "time")
     private String time;
-
     @ManyToOne
     private Customer customer;
-
     @ManyToOne
     private Mechanic mechanic;
 
