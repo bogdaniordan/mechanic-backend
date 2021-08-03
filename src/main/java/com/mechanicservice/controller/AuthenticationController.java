@@ -6,6 +6,7 @@ import com.mechanicservice.dto.UserLoginResponse;
 import com.mechanicservice.model.User;
 import com.mechanicservice.repository.UserRepository;
 import com.mechanicservice.security.JwtTokenService;
+import com.mechanicservice.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AuthenticationController {
 
+    private final CustomerService customerService;
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
@@ -68,6 +70,7 @@ public class AuthenticationController {
 
             UserLoginResponse response = UserLoginResponse.builder()
                     .username(username)
+                    .customerId(customerService.getCustomerIdByUsername(username))
                     .roles(roles)
                     .token(token)
                     .build();

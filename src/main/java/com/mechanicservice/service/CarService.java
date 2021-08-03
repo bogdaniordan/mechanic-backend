@@ -69,4 +69,10 @@ public class CarService {
         customerRepository.save(customer);
         return car;
     }
+
+    public List<Car> getCarsByCustomerId(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find the customer with id: " + id));
+        return customer.getCars();
+    }
 }

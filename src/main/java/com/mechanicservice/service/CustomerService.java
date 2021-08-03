@@ -89,4 +89,13 @@ public class CustomerService {
         customerRepository.save(customer);
         return cardDetails;
     }
+
+
+    public Long getCustomerIdByUsername(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find user"));
+        Customer customer = customerRepository.findCustomerByUserId(user.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find customer with customer id: " + user.getId()));
+        return customer.getId();
+    }
 }

@@ -16,4 +16,5 @@ public class UserLoginResponse {
     private String username;
     private List<String> roles = new ArrayList<>();
     private String token;
+    private Long customerId;
 }

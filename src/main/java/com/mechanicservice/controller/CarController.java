@@ -81,4 +81,11 @@ public class CarController {
         return new ResponseEntity<>(newCar,HttpStatus.CREATED);
     }
 
+    @GetMapping("/cars-by-customer/{id}")
+    public ResponseEntity<List<Car>> getCarsByCustomerId(@PathVariable Long id) {
+        log.info("Getting cars for customer with id: " + id);
+        List<Car> cars = carService.getCarsByCustomerId(id);
+        return new ResponseEntity<>(cars, HttpStatus.OK);
+    }
+
 }
