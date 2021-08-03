@@ -7,17 +7,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ServiceTypeDTO {
 
-    private ServiceType serviceType;
+    private String name;
     private String pictureURL;
     private int price;
-    private String description;;
+    private String description;
 
     public ServiceTypeDTO(ServiceType serviceType) {
         serviceTypeToDTO(serviceType);
     }
 
     public void serviceTypeToDTO(ServiceType serviceType) {
-        this.serviceType = serviceType;
+        name = serviceType.name;
         pictureURL = serviceType.pictureURL;
         price = serviceType.price;
         description = serviceType.description;

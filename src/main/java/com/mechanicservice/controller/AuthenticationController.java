@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequestMapping("/users")
 @AllArgsConstructor
-public class UserController {
+public class AuthenticationController {
 
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
