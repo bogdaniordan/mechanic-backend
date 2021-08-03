@@ -45,4 +45,8 @@ public class Customer {
     public void addCar(Car car) {
         cars.add(car);
     }
+
+    public void removeCar(Car car) {
+        cars.remove(car);
+    }
 }

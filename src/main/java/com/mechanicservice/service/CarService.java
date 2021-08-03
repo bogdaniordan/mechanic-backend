@@ -41,13 +41,10 @@ public class CarService {
 
     public Car updateCar(Car car) { return carRepository.save(car);}
 
-    public Car deleteById(Long id) {
-        if (carRepository.findById(id).isPresent()) {
-            Car car = carRepository.findById(id).get();
-            carRepository.delete(car);
-            return car;
-        }
-        return null;
+    public void removeAndDeleteCar(Long carId, Long customerId) {
+        Car car = findById(carId);
+        customerService.findById(customerId).removeCar(car);
+        carRepository.delete(car);
     }
 
     public Car updateCarRepairStatus(Long id) {
