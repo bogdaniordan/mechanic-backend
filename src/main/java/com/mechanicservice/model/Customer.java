@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "customer")
 @Data
@@ -15,9 +17,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @OneToOne
-    @JoinColumn(name = "ownedcar_id")
-    private Car ownedCar;
+//    @OneToOne
+//    @JoinColumn(name = "ownedcar_id")
+//    private Car ownedCar;
+    @OneToMany
+    private List<Car> cars = new ArrayList<>();
     @OneToOne
     private User user;
     private String email;
@@ -36,5 +40,9 @@ public class Customer {
         this.street = street;
         this.city = city;
         this.picture = picture;
+    }
+
+    public void addCar(Car car) {
+        cars.add(car);
     }
 }

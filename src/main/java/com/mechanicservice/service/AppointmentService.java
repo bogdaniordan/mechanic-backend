@@ -29,7 +29,12 @@ public class AppointmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find customer with id " + customerId));
         Mechanic mechanic = mechanicRepository.findById(mechanicId)
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find mechanic with id: " + mechanicId));
-        Car car = customer.getOwnedCar();
+//        Car car = customer.getOwnedCar();
+        Car car = null;
+        if (customer.getCars().size() > 0) {
+            car = customer.getCars().get(0);
+        }
+        assert car != null;
         car.setRepairedstatus(RepairedStatus.GETTING_REPAIRED);
         carRepository.save(car);
         appointment.assignCustomer(customer);

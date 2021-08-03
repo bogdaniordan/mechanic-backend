@@ -64,7 +64,8 @@ public class CarService {
         carRepository.save(car);
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find the customer with id: " + id));
-        customer.setOwnedCar(car);
+//        customer.setOwnedCar(car);
+        customer.setCars(List.of(car));
         customerRepository.save(customer);
         return car;
     }

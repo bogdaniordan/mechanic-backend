@@ -30,7 +30,9 @@ public class Runner implements CommandLineRunner {
         car.assignMechanic(mechanic);
         Customer customer = new Customer("Bodgan Iordan", "bogdan.iordan@yahoo.com", "0224342325", "Plutasilor", "Bucale", "https://asport.ro/wp-content/uploads/2021/01/gigi-becali.jpg");
         Customer otherCustomer = new Customer("Gigi Becali", "becali@gmail","928329", "Antareestrat", "4343", "https://asport.ro/wp-content/uploads/2021/01/gigi-becali.jpg");
-        customer.setOwnedCar(car);
+        Car secondCar = new Car("renault", RepairedStatus.BROKEN, ServiceType.POWER_STEERING_SYSTEM, FuelType.ELECTRIC);
+        customer.setCars(List.of(car, secondCar));
+        // trebuia sa pun list of si nu add car pt ca nu era initalizata la inceput lista cu un list of
         CarService carService = new CarService(ServiceType.ENGINE_REPAIR, new Date());
         carService.assignCar(car);
         mechanic.addPicture("https://thumbor.unica.ro/unsafe/980x600/smart/filters:contrast(1):quality(80)/https://tvmania.ro/wp-content/uploads/2020/12/Nea-Marin-1.jpg");
@@ -62,6 +64,7 @@ public class Runner implements CommandLineRunner {
         mechanicRepository.save(mechanic3);
 
         carRepository.save(car);
+        carRepository.save(secondCar);
         customerRepository.save(customer);
         customerRepository.save(otherCustomer);
         serviceRepository.save(carService);
