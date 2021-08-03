@@ -15,6 +15,7 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String brandName;
+    private String picture;
     @OneToOne
     @JoinColumn(name = "id")
     private Mechanic assignedMechanic;
@@ -26,12 +27,14 @@ public class Car {
     private ServiceType requiredservice;
 
 
-    public Car(String brandName, RepairedStatus repairedStatus, ServiceType requiredServices, FuelType fuel) {
+    public Car(String brandName, RepairedStatus repairedStatus, ServiceType requiredServices, FuelType fuel, String picture) {
         this.brandName = brandName;
         this.repairedstatus = repairedStatus;
         this.requiredservice = requiredServices;
         this.fuel = fuel;
+        this.picture = picture;
     }
+
 
     public void assignMechanic(Mechanic mechanic) {
         this.assignedMechanic = mechanic;

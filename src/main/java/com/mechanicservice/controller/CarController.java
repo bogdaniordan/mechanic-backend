@@ -88,4 +88,10 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
+    @PostMapping("/add-car-to-customer/{customerId}")
+    public void addCarToCustomer(@RequestBody Car car, @PathVariable Long customerId) {
+        log.info("Adding a new car to the collection of customer with id: " + customerId);
+        carService.addCarToCustomer(car, customerId);
+    }
+
 }

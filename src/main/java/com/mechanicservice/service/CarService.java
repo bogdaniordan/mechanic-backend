@@ -7,6 +7,7 @@ import com.mechanicservice.model.RepairedStatus;
 import com.mechanicservice.repository.CarRepository;
 import com.mechanicservice.repository.CustomerRepository;
 import com.mechanicservice.repository.MechanicRepository;
+import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,24 +15,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CarService {
 
-    @Autowired
-    private MechanicRepository mechanicRepository;
-
-    @Autowired
-    private CarRepository carRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final MechanicRepository mechanicRepository;
+    private final CarRepository carRepository;
+    private final CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 
     public Car getCar(Long id) {
-        return carRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Unable to find customer id: " + id));
+        return findById(id);
     }
 
     public Car saveCar(Car car, Long mechanicId) {
@@ -54,16 +51,14 @@ public class CarService {
     }
 
     public Car updateCarRepairStatus(Long id) {
-        Car car = carRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Could not find car with id: " + id));
+        Car car = findById(id);
         car.setRepairedstatus(RepairedStatus.REPAIRED);
         return carRepository.save(car);
     }
 
     public Car replaceCustomerCar(Car car, Long id) {
         carRepository.save(car);
-        Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Could not find the customer with id: " + id));
+        Customer customer = customerService.findById(id);
 //        customer.setOwnedCar(car);
         customer.setCars(List.of(car));
         customerRepository.save(customer);
@@ -71,8 +66,15 @@ public class CarService {
     }
 
     public List<Car> getCarsByCustomerId(Long id) {
-        Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Could not find the customer with id: " + id));
-        return customer.getCars();
+        return customerService.findById(id).getCars();
+    }
+
+    public void addCarToCustomer(Car car, Long id) {
+        customerService.findById(id).addCar(car);
+    }
+
+    public Car findById(Long id) {
+        return carRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Unable to find customer id: " + id));
     }
 }
