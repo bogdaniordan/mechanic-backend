@@ -17,27 +17,20 @@ public class Appointment {
     private Long id;
     @Enumerated(EnumType.STRING)
     private ServiceType requiredservice;
-    private int price;
-    @Column(name = "date")
     private String localDate;
     private String time;
+    private String notes;
     @ManyToOne
     private Customer customer;
     @ManyToOne
     private Mechanic mechanic;
-
-    public Appointment(ServiceType requiredservice, String localDate, String time) {
-        this.requiredservice = requiredservice;
-        this.localDate = localDate;
-        this.time = time;
-        price = requiredservice.price;
-    }
-
-    public void assignCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public void assignMechanic(Mechanic mechanic) {
-        this.mechanic = mechanic;
-    }
+    @OneToOne
+    private Car car;
+//
+//    public Appointment(ServiceType requiredservice, String localDate, String time, String notes) {
+//        this.requiredservice = requiredservice;
+//        this.localDate = localDate;
+//        this.time = time;
+//        this.notes = notes;
+//    }
 }

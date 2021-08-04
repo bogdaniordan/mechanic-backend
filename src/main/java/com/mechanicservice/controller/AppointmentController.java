@@ -17,12 +17,13 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    @PostMapping("/{mechanicId}/{customerId}")
+    @PostMapping("/mechanic/{mechanicId}/customer/{customerId}/car/{carId}")
     public ResponseEntity<Appointment> makeAppointment(@RequestBody Appointment appointment,
                                                        @PathVariable Long customerId,
-                                                       @PathVariable Long mechanicId) {
-        log.info("Creating a new appointment.");
-        Appointment newAppointment = appointmentService.addNewAppointment(appointment, customerId, mechanicId);
+                                                       @PathVariable Long mechanicId,
+                                                       @PathVariable Long carId) {
+        log.info("Creating a new appointment for car: " + carId);
+        Appointment newAppointment = appointmentService.addNewAppointment(appointment, customerId, mechanicId, carId);
         return new ResponseEntity<>(newAppointment, HttpStatus.CREATED);
     }
 

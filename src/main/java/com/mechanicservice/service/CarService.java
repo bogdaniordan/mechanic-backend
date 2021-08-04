@@ -82,4 +82,8 @@ public class CarService {
         return carRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Unable to find customer id: " + id));
     }
+
+    public Car saveCarInDB(Car car) {
+        return carRepository.save(car);
+    }
 }

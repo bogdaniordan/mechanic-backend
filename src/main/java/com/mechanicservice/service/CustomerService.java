@@ -103,4 +103,8 @@ public class CustomerService {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find the customer with id: " + id));
     }
+
+    public Customer saveCustomer(Customer customer) {
+        return customerRepository.save(customer);
+    }
 }

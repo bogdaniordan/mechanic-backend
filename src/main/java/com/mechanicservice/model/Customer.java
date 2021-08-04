@@ -29,17 +29,21 @@ public class Customer {
     private String street;
     private String city;
     private String picture;
+    private String jobPosition;
+    private String gender;
 
     @OneToOne
     private CardDetails cardDetails;
 
-    public Customer(String name, String email, String phoneNumber, String street, String city, String picture) {
+    public Customer(String name, String email, String phoneNumber, String street, String city, String picture, String jobPosition, String gender) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.street = street;
         this.city = city;
         this.picture = picture;
+        this.jobPosition = jobPosition;
+        this.gender = gender;
     }
 
     public void addCar(Car car) {

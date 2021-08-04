@@ -23,12 +23,14 @@ public class Mechanic {
     private String picture;
     @OneToMany
     private List<Car> assignedCars;
+    private String description;
 
 
-    public Mechanic(String name, ServiceType serviceType) {
+    public Mechanic(String name, ServiceType serviceType, String description) {
         this.name = name;
         this.specialization = serviceType;
         this.assignedCars = new ArrayList<>();
+        this.description = description;
     }
 
     public void addPicture(String picture) {

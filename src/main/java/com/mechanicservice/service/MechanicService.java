@@ -62,4 +62,9 @@ public class MechanicService {
         return mechanicRepository.getMechanicBySpecialization(Enum.valueOf(ServiceType.class, specialization))
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find any mechanic with specialization: " + specialization));
     }
+
+    public Mechanic findById(Long id) {
+        return mechanicRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find mechanic with id: " + id));
+    }
 }
