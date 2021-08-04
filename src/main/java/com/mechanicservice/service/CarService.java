@@ -72,7 +72,10 @@ public class CarService {
     }
 
     public void addCarToCustomer(Car car, Long id) {
-        customerService.findById(id).addCar(car);
+        carRepository.save(car);
+        Customer customer = customerService.findById(id);
+        customer.addCar(car);
+        customerRepository.save(customer);
     }
 
     public Car findById(Long id) {
