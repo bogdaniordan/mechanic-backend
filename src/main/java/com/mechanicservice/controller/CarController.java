@@ -65,8 +65,11 @@ public class CarController {
     }
 
     @DeleteMapping("/delete-car/{carId}/from-customer/{customerId}")
-    public void deleteCar(@PathVariable Long carId, @PathVariable Long customerId)  {
-        carService.removeAndDeleteCar(carId, customerId);
+    public ResponseEntity<String> deleteCar(@PathVariable Long carId, @PathVariable Long customerId)  {
+        if (carService.removeAndDeleteCar(carId, customerId)) {
+            return ResponseEntity.ok("Deleted car with id: " + carId);
+        }
+        return ResponseEntity.ok("Couldn't delete car with id: " + carId);
     }
 
 

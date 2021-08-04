@@ -33,11 +33,11 @@ public class Runner implements CommandLineRunner {
         Car secondCar = new Car("renault", RepairedStatus.BROKEN, ServiceType.POWER_STEERING_SYSTEM, FuelType.ELECTRIC, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-lamborghini-urus-mmp-1-1592423712.jpg?crop=1xw:0.84375xh;center,top&resize=480:*");
         customer.setCars(List.of(car, secondCar));
         // trebuia sa pun list of si nu add car pt ca nu era initalizata la inceput lista cu un list of
-        CarService carService = new CarService(ServiceType.ENGINE_REPAIR, new Date());
-        carService.assignCar(car);
+//        CarService carService = new CarService(ServiceType.ENGINE_REPAIR, new Date());
+//        carService.assignCar(car);
         mechanic.addPicture("https://thumbor.unica.ro/unsafe/980x600/smart/filters:contrast(1):quality(80)/https://tvmania.ro/wp-content/uploads/2020/12/Nea-Marin-1.jpg");
         mechanic1.addPicture("https://agrointel.ro/wp-content/uploads/2016/07/Adrian-Porumboiu-a-vandut-Comcereal.jpg");
-        carService.assignMechanic(mechanic);
+//        carService.assignMechanic(mechanic);
         List<String> lst = List.of("ROLE_USER");
         User user = new User("bogdan", "iordan" , "bogdan", BCrypt.hashpw("1234", BCrypt.gensalt(12)), lst);
         User otherUser = new User("becali", "gigi", "becali", BCrypt.hashpw("steaua", BCrypt.gensalt(12)), lst);
@@ -67,7 +67,7 @@ public class Runner implements CommandLineRunner {
         carRepository.save(secondCar);
         customerRepository.save(customer);
         customerRepository.save(otherCustomer);
-        serviceRepository.save(carService);
+//        serviceRepository.save(carService);
 
         testimonialRepository.save(testimonial1);
         testimonialRepository.save(testimonial);
