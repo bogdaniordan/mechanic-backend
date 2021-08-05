@@ -11,6 +11,7 @@ public class ServiceTypeDTO {
     private String pictureURL;
     private int price;
     private String description;
+    private String upperCaseName;
 
     public ServiceTypeDTO(ServiceType serviceType) {
         serviceTypeToDTO(serviceType);
@@ -21,5 +22,6 @@ public class ServiceTypeDTO {
         pictureURL = serviceType.pictureURL;
         price = serviceType.price;
         description = serviceType.description;
+        upperCaseName = serviceType.upperCaseName;
     }
 }
