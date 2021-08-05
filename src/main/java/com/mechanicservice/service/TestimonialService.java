@@ -8,6 +8,7 @@ import com.mechanicservice.repository.CarRepository;
 import com.mechanicservice.repository.CustomerRepository;
 import com.mechanicservice.repository.MechanicRepository;
 import com.mechanicservice.repository.TestimonialRepository;
+import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,18 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class TestimonialService {
-    @Autowired
-    private TestimonialRepository testimonialRepository;
 
-    @Autowired
-    private CarRepository carRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private MechanicRepository mechanicRepository;
+    private final TestimonialRepository testimonialRepository;
+    private final CarService carService;
+    private final CustomerService customerService;
+    private final MechanicService mechanicService;
 
     public List<Testimonial> getTestimonialsByMechanic(Long id) {
         return testimonialRepository.getTestimonialsByMechanic_Id(id)
@@ -35,12 +31,9 @@ public class TestimonialService {
 
 
     public Testimonial addTestimonial(Testimonial testimonial, Long carId, Long customerId, Long mechanicId) {
-        Car car = carRepository.findById(carId)
-                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find car with id: " + carId));
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find customer with id: " + customerId));
-        Mechanic mechanic = mechanicRepository.findById(mechanicId)
-                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find mechanic with id: " + mechanicId));
+        Car car = carService.findById(carId);
+        Customer customer = customerService.findById(customerId);
+        Mechanic mechanic = mechanicService.findById(mechanicId);
         testimonial.setMechanic(mechanic);
         testimonial.setCustomer(customer);
         testimonial.setCar(car);

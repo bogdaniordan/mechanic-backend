@@ -46,11 +46,7 @@ public class MechanicService {
         if (mechanicRepository.findById(id).isPresent()) {
             Mechanic mechanic = mechanicRepository.findById(id).get();
             Optional<List<CarService>> servicesByMechanic = serviceRepository.getServicesByMechanic_Id(id);
-            if (servicesByMechanic.isPresent()) {
-                for (CarService carService : servicesByMechanic.get()) {
-                    serviceRepository.delete(carService);
-                }
-            }
+            servicesByMechanic.ifPresent(carServices -> serviceRepository.deleteAll(carServices));
             mechanicRepository.delete(mechanic);
             return mechanic;
         }

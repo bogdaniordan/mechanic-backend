@@ -31,7 +31,8 @@ public class Runner implements CommandLineRunner {
         Customer customer = new Customer("Bodgan Iordan", "bogdan.iordan@yahoo.com", "0224342325", "Plutasilor", "Bucale", "https://asport.ro/wp-content/uploads/2021/01/gigi-becali.jpg", "software dev", "Male");
         Customer otherCustomer = new Customer("Gigi Becali", "becali@gmail","928329", "Antareestrat", "4343", "https://asport.ro/wp-content/uploads/2021/01/gigi-becali.jpg", "software dev", "Not sure");
         Car secondCar = new Car("renault", RepairedStatus.BROKEN, ServiceType.POWER_STEERING_SYSTEM, FuelType.ELECTRIC, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-lamborghini-urus-mmp-1-1592423712.jpg?crop=1xw:0.84375xh;center,top&resize=480:*");
-        customer.setCars(List.of(car, secondCar));
+        Car thirdCar = new Car("Audi Q8", RepairedStatus.REPAIRED, ServiceType.OIL_CHANGE, FuelType.DIESEL, "https://www.auto-bild.ro/wp-content/uploads/2020/10/Audi-Q8-plug-in-hybrid-9.jpg");
+        customer.setCars(List.of(car, secondCar, thirdCar));
         // trebuia sa pun list of si nu add car pt ca nu era initalizata la inceput lista cu un list of
 //        CarService carService = new CarService(ServiceType.ENGINE_REPAIR, new Date());
 //        carService.assignCar(car);
@@ -67,6 +68,7 @@ public class Runner implements CommandLineRunner {
 
         carRepository.save(car);
         carRepository.save(secondCar);
+        carRepository.save(thirdCar);
         customerRepository.save(customer);
         customerRepository.save(otherCustomer);
 //        serviceRepository.save(carService);
