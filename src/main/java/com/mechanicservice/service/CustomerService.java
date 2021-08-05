@@ -8,6 +8,7 @@ import com.mechanicservice.repository.CarRepository;
 import com.mechanicservice.repository.CardDetailsRepository;
 import com.mechanicservice.repository.CustomerRepository;
 import com.mechanicservice.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,19 +16,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CustomerService {
 
-    @Autowired
-    private CarRepository carRepository;
-
-    @Autowired
-    private CustomerRepository customerRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CardDetailsRepository cardDetailsRepository;
+    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
+    private final CardDetailsRepository cardDetailsRepository;
 
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
@@ -38,11 +32,11 @@ public class CustomerService {
                 .orElseThrow(() -> new ResourceNotFoundException("Unable to find customer with id: " + id));
     }
 
-    public Customer saveCustomer(Customer customer, Long carId) {
-        Car car = carRepository.findById(carId)
-                .orElseThrow(() -> new ResourceNotFoundException("Unable to find car with id: " + carId));
-//        customer.setOwnedCar(car);
-        customer.setCars(List.of(car));
+    public Customer saveCustomer(Customer customer, String username) {
+        System.out.println(customer);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find user with username: " + username));
+        customer.setUser(user);
         return customerRepository.save(customer);
     }
 

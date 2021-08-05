@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Size(min = 5, max = 50)
+    @NotNull
     private String name;
     @OneToMany
     private List<Car> cars = new ArrayList<>();
@@ -27,27 +30,29 @@ public class Customer {
     @Size(min=3, max=25)
     @NotNull
     private String email;
-    @Size(min=7, max=15)
     @NotNull
     private String phoneNumber;
     @Size(min=5, max=30)
     @NotNull
     private String street;
-    @Max(30)
+    @Size(max=25)
     @NotNull
     private String city;
     private String picture;
-    @Max(15)
+    @Size(max=15)
     @NotNull
     private String jobPosition;
-    @Max(10)
+    @Size(max=10)
     @NotNull
     private String gender;
+    @Min(18)
+    @NotNull
+    private int age;
 
     @OneToOne
     private CardDetails cardDetails;
 
-    public Customer(String name, String email, String phoneNumber, String street, String city, String picture, String jobPosition, String gender) {
+    public Customer(String name, String email, String phoneNumber, String street, String city, String picture, String jobPosition, String gender, int age) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -56,6 +61,7 @@ public class Customer {
         this.picture = picture;
         this.jobPosition = jobPosition;
         this.gender = gender;
+        this.age = age;
     }
 
     public void addCar(Car car) {

@@ -37,10 +37,10 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @PostMapping("/{car-id}")
-    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer, @PathVariable("car-id") Long carId) {
-        log.info("Adding customer with id: " + customer.getId());
-        Customer savedCustomer = customerService.saveCustomer(customer, carId);
+    @PostMapping("/add-customer/{username}")
+    public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer, @PathVariable String username) {
+        log.info("Adding customer for user: " + username);
+        Customer savedCustomer = customerService.saveCustomer(customer, username);
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
     }
 

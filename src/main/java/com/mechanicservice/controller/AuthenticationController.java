@@ -10,6 +10,7 @@ import com.mechanicservice.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -82,5 +83,13 @@ public class AuthenticationController {
         } catch (UsernameNotFoundException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+    }
+
+    @GetMapping("/get-fullname/{username}")
+    public ResponseEntity<String> getUserFullName(@PathVariable String username) {
+        log.info("Getting full name of user with username: " + username);
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Could not find user with username: " + username));
+        return new ResponseEntity<>(user.getFirstName() + " " + user.getSecondName(), HttpStatus.OK);
     }
 }
