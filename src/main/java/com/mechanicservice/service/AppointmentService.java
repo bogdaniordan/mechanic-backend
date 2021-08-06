@@ -10,6 +10,8 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class AppointmentService {
@@ -39,5 +41,10 @@ public class AppointmentService {
         car.setRepairedstatus(RepairedStatus.GETTING_REPAIRED);
         carService.saveCarInDB(car);
         return car;
+    }
+
+    public List<Appointment> getByMechanicId(Long id) {
+        return appointmentRepository.getAppointmentsByMechanic_Id(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find appointment with mechanic id: " + id));
     }
 }

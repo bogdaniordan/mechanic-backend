@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @Slf4j
@@ -33,5 +35,12 @@ public class AppointmentController {
         log.info("fetching appointment with customer id: " + customerId);
         Appointment appointment = appointmentService.getAppointmentByCustomerId(customerId);
         return new ResponseEntity<>(appointment, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by-mechanic/{id}")
+    public ResponseEntity<List<Appointment>> getByMechanicId(@PathVariable Long id) {
+        log.info("Fetching appointments made with mechanic: " + id);
+        List<Appointment> appointments = appointmentService.getByMechanicId(id);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 }

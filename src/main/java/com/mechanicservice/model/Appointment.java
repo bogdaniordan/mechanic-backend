@@ -26,11 +26,11 @@ public class Appointment {
     private Mechanic mechanic;
     @OneToOne
     private Car car;
-//
-//    public Appointment(ServiceType requiredservice, String localDate, String time, String notes) {
-//        this.requiredservice = requiredservice;
-//        this.localDate = localDate;
-//        this.time = time;
-//        this.notes = notes;
-//    }
+
+    public Appointment(ServiceType requiredservice, String localDate, String time, String notes) {
+        this.requiredservice = requiredservice;
+        this.localDate = localDate;
+        this.time = time;
+        this.notes = notes;
+    }
 }

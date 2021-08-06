@@ -24,13 +24,49 @@ public class Mechanic {
     @OneToMany
     private List<Car> assignedCars;
     private String description;
+    private int experience;
+    private int automotiveRepair;
+    private int engineRepair;
+    private int importantParts;
+    private int brakeRepair;
+    private String phoneNumber;
+    private String email;
+    private String position;
 
-
-    public Mechanic(String name, ServiceType serviceType, String description) {
+    public Mechanic(String name, ServiceType specialization, String picture, String description, int experience, int automotive_repair, int engine_repair, int important_parts, int brake_repair, String phoneNumber, String position) {
         this.name = name;
-        this.specialization = serviceType;
-        this.assignedCars = new ArrayList<>();
+        this.specialization = specialization;
+        this.picture = picture;
         this.description = description;
+        this.experience = experience;
+        this.automotiveRepair = automotive_repair;
+        this.engineRepair = engine_repair;
+        this.importantParts = important_parts;
+        this.brakeRepair = brake_repair;
+        this.phoneNumber = phoneNumber;
+        this.email = nameToEmail(name);
+        this.position = position;
+        assignedCars = new ArrayList<>();
+    }
+
+//    public Mechanic(String name, ServiceType serviceType, String description) {
+//        this.name = name;
+//        this.specialization = serviceType;
+//        this.assignedCars = new ArrayList<>();
+//        this.description = description;
+//    }
+
+    private String nameToEmail(String name) {
+        StringBuilder email = new StringBuilder();
+        for(int i = 0; i < name.length(); i++) {
+            if (Character.isLetter(name.charAt(i))) {
+                email.append(Character.toLowerCase(name.charAt(i)));
+            } else {
+                email.append("_");
+            }
+        }
+        email.append("@gmail.com");
+        return email.toString();
     }
 
     public void addPicture(String picture) {
