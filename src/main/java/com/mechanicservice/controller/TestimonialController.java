@@ -37,4 +37,10 @@ public class TestimonialController {
         return new ResponseEntity<>(newTestimonial, HttpStatus.CREATED);
     }
 
+    @GetMapping("/reviewed-car/{id}")
+    public ResponseEntity<Boolean> carHasBeenReviewed(@PathVariable Long id) {
+        log.info("Checking if car with id " + id + " has been reviewed.");
+        return new ResponseEntity<>(testimonialService.canIsReviewed(id), HttpStatus.OK);
+    }
+
 }

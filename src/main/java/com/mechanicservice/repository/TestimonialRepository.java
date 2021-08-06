@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface TestimonialRepository extends JpaRepository<Testimonial, Long> {
     Optional<List<Testimonial>> getTestimonialsByMechanic_Id(Long mechanic_id);
+
+    Optional<List<Testimonial>> getTestimonialsByCarId(Long car_id);
 }

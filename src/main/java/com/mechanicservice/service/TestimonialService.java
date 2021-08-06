@@ -10,6 +10,7 @@ import com.mechanicservice.repository.MechanicRepository;
 import com.mechanicservice.repository.TestimonialRepository;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.aspectj.weaver.ast.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,11 @@ public class TestimonialService {
         testimonial.setCustomer(customer);
         testimonial.setCar(car);
         return testimonialRepository.save(testimonial);
+    }
+
+    public boolean canIsReviewed(Long id) {
+        List<Testimonial> testimonials = testimonialRepository.getTestimonialsByCarId(id)
+                .orElseThrow(() -> new ResourceNotFoundException(""));
+        return testimonials.size() > 0;
     }
 }
