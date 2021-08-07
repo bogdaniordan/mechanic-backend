@@ -5,6 +5,7 @@ import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.model.ServiceType;
 import com.mechanicservice.repository.MechanicRepository;
 import com.mechanicservice.repository.ServiceRepository;
+import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class MechanicService {
 
-    @Autowired
     private MechanicRepository mechanicRepository;
-
-    @Autowired
     private ServiceRepository serviceRepository;
 
     public List<Mechanic> getAllMechanics() {

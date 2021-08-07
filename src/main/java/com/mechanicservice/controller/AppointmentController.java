@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -23,7 +24,7 @@ public class AppointmentController {
     public ResponseEntity<Appointment> makeAppointment(@RequestBody Appointment appointment,
                                                        @PathVariable Long customerId,
                                                        @PathVariable Long mechanicId,
-                                                       @PathVariable Long carId) {
+                                                       @PathVariable Long carId) throws MessagingException {
         log.info("Creating a new appointment for car: " + carId);
         Appointment newAppointment = appointmentService.addNewAppointment(appointment, customerId, mechanicId, carId);
         return new ResponseEntity<>(newAppointment, HttpStatus.CREATED);
