@@ -5,11 +5,13 @@ import com.mechanicservice.repository.AppointmentRepository;
 import com.mechanicservice.repository.CarRepository;
 import com.mechanicservice.repository.CustomerRepository;
 import com.mechanicservice.repository.MechanicRepository;
+import com.mechanicservice.util.Email;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Service
@@ -21,13 +23,14 @@ public class AppointmentService {
     private final MechanicService mechanicService;
     private final CarService carService;
 
-    public Appointment addNewAppointment(Appointment appointment, Long customerId, Long mechanicId, Long carId) {
+    public Appointment addNewAppointment(Appointment appointment, Long customerId, Long mechanicId, Long carId) throws MessagingException {
         Customer customer = customerService.findById(customerId);
         Mechanic mechanic = mechanicService.findById(mechanicId);
         Car car = setCarToRepaired(carId);
         appointment.setCustomer(customer);
         appointment.setMechanic(mechanic);
         appointment.setCar(car);
+        Email.send(customer.getEmail(), customer, appointment);
         return appointmentRepository.save(appointment);
     }
 
