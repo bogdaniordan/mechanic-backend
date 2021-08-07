@@ -75,15 +75,6 @@ public class CustomerService {
         return customerRepository.save(customerToUpdate);
     }
 
-    public CardDetails addCardDetails(CardDetails cardDetails, Long customerId) {
-        cardDetailsRepository.save(cardDetails);
-        Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new ResourceNotFoundException("No customer with id : "+ customerId));
-        customer.setCardDetails(cardDetails);
-        customerRepository.save(customer);
-        return cardDetails;
-    }
-
 
     public Long getCustomerIdByUsername(String username) {
         User user = userRepository.findByUsername(username)

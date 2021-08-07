@@ -17,6 +17,7 @@ public class Appointment {
     private Long id;
     @Enumerated(EnumType.STRING)
     private ServiceType requiredservice;
+    private int price;
     private String localDate;
     private String time;
     private String notes;
@@ -32,5 +33,6 @@ public class Appointment {
         this.localDate = localDate;
         this.time = time;
         this.notes = notes;
+        price = requiredservice.price;
     }
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity(name = "card_details")
 @Data
@@ -15,14 +16,15 @@ public class CardDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String cardOwner;
+    @Size(min = 12)
     private String cardNumber;
-    private String expirationMonth;
-    private String expirationYear;
+    private String expirationDate;
+    private String cvv;
 
-    public CardDetails(String cardOwner, String cardNumber, String expirationMonth, String expirationYear) {
+    public CardDetails(String cardOwner, String cardNumber, String expirationDate, String cvv) {
         this.cardOwner = cardOwner;
         this.cardNumber = cardNumber;
-        this.expirationMonth = expirationMonth;
-        this.expirationYear = expirationYear;
+        this.expirationDate = expirationDate;
+        this.cvv = cvv;
     }
 }

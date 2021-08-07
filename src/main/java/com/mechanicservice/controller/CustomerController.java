@@ -85,14 +85,4 @@ public class CustomerController {
         Customer updatedCustomer = customerService.updateCustomer(customer, customerId);
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
-
-    @PostMapping("/add-payment-details/{customerId}")
-    public ResponseEntity<CardDetails> addCardDetails(@RequestBody CardDetails cardDetails, @PathVariable Long customerId) {
-        log.info("Adding card details to customer with id: " + customerId);
-        CardDetails cardDetails1 = customerService.addCardDetails(cardDetails, customerId);
-        return new ResponseEntity<>(cardDetails, HttpStatus.CREATED);
-    }
-
-
-
 }
