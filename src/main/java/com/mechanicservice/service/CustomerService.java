@@ -65,13 +65,15 @@ public class CustomerService {
     }
 
     public Customer updateCustomer(Customer customer, Long customerId) {
-        Customer customerToUpdate = customerRepository.findById(customerId)
-                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find customer with id: " + customerId));
+        Customer customerToUpdate = findById(customerId);
         customerToUpdate.setName(customer.getName());
         customerToUpdate.setEmail(customer.getEmail());
         customerToUpdate.setPhoneNumber(customer.getPhoneNumber());
         customerToUpdate.setCity(customer.getCity());
         customerToUpdate.setStreet(customer.getStreet());
+        customerToUpdate.setJobPosition(customer.getJobPosition());
+        customerToUpdate.setGender(customer.getGender());
+        customerToUpdate.setAge(customer.getAge());
         return customerRepository.save(customerToUpdate);
     }
 

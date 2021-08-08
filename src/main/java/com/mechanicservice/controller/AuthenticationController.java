@@ -76,7 +76,7 @@ public class AuthenticationController {
                     .token(token)
                     .build();
 
-            System.out.println(response.toString());
+            log.info(response.toString());
 
             return ResponseEntity.ok(response);
 
