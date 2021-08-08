@@ -2,6 +2,7 @@ package com.mechanicservice.controller;
 
 import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.service.MechanicService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,9 +15,9 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/mechanics")
+@AllArgsConstructor
 public class MechanicController {
 
-    @Autowired
     private MechanicService mechanicService;
 
     @GetMapping

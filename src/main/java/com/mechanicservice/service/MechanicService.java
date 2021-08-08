@@ -1,5 +1,6 @@
 package com.mechanicservice.service;
 
+import com.mechanicservice.dto.ServiceTypeDTO;
 import com.mechanicservice.model.CarService;
 import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.model.ServiceType;
@@ -10,6 +11,7 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,10 @@ public class MechanicService {
     public Mechanic findById(Long id) {
         return mechanicRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find mechanic with id: " + id));
+    }
+
+
+    public ServiceTypeDTO getMostNeededSpecialization() {
+        return new ServiceTypeDTO(mechanicRepository.findAll().stream().min(Comparator.comparing(Mechanic::getSpecialization)).get().getSpecialization());
     }
 }
