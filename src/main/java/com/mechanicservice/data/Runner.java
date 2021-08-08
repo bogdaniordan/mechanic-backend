@@ -62,6 +62,11 @@ public class Runner implements CommandLineRunner {
         appointment.setCustomer(customer);
         appointment.setCar(car);
 
+        Appointment appointment1 = new Appointment(ServiceType.OIL_CHANGE, LocalDate.now().toString(), "11:21", "Baga ulei k te sparg!");
+        appointment1.setMechanic(mechanic);
+        appointment1.setCustomer(customer);
+        appointment1.setCar(car);
+
 
         testimonial1.setCar(car);
         testimonial1.setCustomer(customer);
@@ -93,6 +98,7 @@ public class Runner implements CommandLineRunner {
         testimonialRepository.save(testimonial3);
 
         appointmentRepository.save(appointment);
+        appointmentRepository.save(appointment1);
 
 
     }

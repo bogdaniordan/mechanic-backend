@@ -34,8 +34,8 @@ public class AppointmentService {
         return appointmentRepository.save(appointment);
     }
 
-    public Appointment getAppointmentByCustomerId(Long id) {
-        return appointmentRepository.getAppointmentByCustomer_Id(id)
+    public List<Appointment> getAppointmentsByCustomerId(Long id) {
+        return appointmentRepository.getAppointmentsByCustomer_Id(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No appointment for customer with id: " + id));
     }
 

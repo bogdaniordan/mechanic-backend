@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    Optional<Appointment> getAppointmentByCustomer_Id(Long customer_id);
+    Optional<List<Appointment>> getAppointmentsByCustomer_Id(Long customer_id);
     Optional<List<Appointment>> getAppointmentsByMechanic_Id(Long mechanic_id);
 }

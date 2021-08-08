@@ -2,6 +2,7 @@ package com.mechanicservice.controller;
 
 import com.mechanicservice.model.Appointment;
 import com.mechanicservice.service.AppointmentService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,9 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/appointments")
+@AllArgsConstructor
 public class AppointmentController {
 
-    @Autowired
     private AppointmentService appointmentService;
 
     @PostMapping("/mechanic/{mechanicId}/customer/{customerId}/car/{carId}")
@@ -32,10 +33,10 @@ public class AppointmentController {
 
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<Appointment> getByCustomerId(@PathVariable Long customerId) {
+    public ResponseEntity<List<Appointment>> getByCustomerId(@PathVariable Long customerId) {
         log.info("fetching appointment with customer id: " + customerId);
-        Appointment appointment = appointmentService.getAppointmentByCustomerId(customerId);
-        return new ResponseEntity<>(appointment, HttpStatus.OK);
+        List<Appointment> appointments = appointmentService.getAppointmentsByCustomerId(customerId);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
     @GetMapping("/get-by-mechanic/{id}")
