@@ -20,11 +20,4 @@ public class CardDetails {
     private String cardNumber;
     private String expirationDate;
     private String cvv;
-
-    public CardDetails(String cardOwner, String cardNumber, String expirationDate, String cvv) {
-        this.cardOwner = cardOwner;
-        this.cardNumber = cardNumber;
-        this.expirationDate = expirationDate;
-        this.cvv = cvv;
-    }
 }

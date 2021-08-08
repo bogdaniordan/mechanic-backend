@@ -1,5 +1,6 @@
-package com.mechanicservice.model;
+package com.mechanicservice.dto;
 
+import com.mechanicservice.model.ServiceType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

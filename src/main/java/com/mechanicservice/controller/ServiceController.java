@@ -2,7 +2,7 @@ package com.mechanicservice.controller;
 
 import com.mechanicservice.model.CarService;
 import com.mechanicservice.model.ServiceType;
-import com.mechanicservice.model.ServiceTypeDTO;
+import com.mechanicservice.dto.ServiceTypeDTO;
 import com.mechanicservice.service.CarServiceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

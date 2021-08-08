@@ -49,12 +49,6 @@ public class Mechanic {
         assignedCars = new ArrayList<>();
     }
 
-//    public Mechanic(String name, ServiceType serviceType, String description) {
-//        this.name = name;
-//        this.specialization = serviceType;
-//        this.assignedCars = new ArrayList<>();
-//        this.description = description;
-//    }
 
     private String nameToEmail(String name) {
         StringBuilder email = new StringBuilder();
@@ -68,14 +62,4 @@ public class Mechanic {
         email.append("@gmail.com");
         return email.toString();
     }
-
-    public void addPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public void assignCar(Car car) {
-        assignedCars.add(car);
-    }
-
-
 }
