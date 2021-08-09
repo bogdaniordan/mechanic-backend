@@ -9,11 +9,11 @@ import com.mechanicservice.repository.ServiceRepository;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -67,6 +67,44 @@ public class MechanicService {
 
 
     public ServiceTypeDTO getMostNeededSpecialization() {
-        return new ServiceTypeDTO(mechanicRepository.findAll().stream().min(Comparator.comparing(Mechanic::getSpecialization)).get().getSpecialization());
+        return new ServiceTypeDTO(getMostNeededService());
+    }
+
+    public ServiceType getMostNeededService() {
+        HashMap<ServiceType, Integer> mechanicsPerSpecialization = new HashMap<>();
+        for(ServiceType serviceType: ServiceType.values()) {
+            if (!mechanicsPerSpecialization.containsKey(serviceType)) {
+                mechanicsPerSpecialization.put(serviceType, 1);
+            } else {
+                mechanicsPerSpecialization.replace(serviceType, mechanicsPerSpecialization.get(serviceType) + 1);
+            }
+        }
+        ServiceType serviceType = ServiceType.getRandomServiceType();
+        int maxMechanicsNumber = mechanicsPerSpecialization.get(serviceType);
+        for (Map.Entry<ServiceType, Integer> entry: mechanicsPerSpecialization.entrySet()) {
+            if (entry.getValue() < maxMechanicsNumber) {
+                serviceType = entry.getKey();
+                maxMechanicsNumber = entry.getValue();
+            }
+        }
+        return serviceType;
+    }
+
+    public Boolean hireMechanic(Mechanic mechanic) {
+        if (getMostNeededService() == mechanic.getSpecialization()) {
+            mechanic.setPosition("Junior Mechanic");
+            mechanicRepository.save(mechanic);
+            return true;
+        }
+        List<Mechanic> mechanics = mechanicRepository.findAll().stream().filter(midMechanic -> midMechanic.getPosition().equals("Mid-level Mechanic")).collect(Collectors.toList());
+        if (mechanics.size() > 0) {
+            Mechanic midLevelMechanic = mechanics.get(0);
+            if (mechanic.getExperience() >= midLevelMechanic.getExperience() && mechanic.getAutomotiveRepair() >= midLevelMechanic.getAutomotiveRepair() && mechanic.getBrakeRepair() >= midLevelMechanic.getBrakeRepair() && mechanic.getEngineRepair() >= midLevelMechanic.getEngineRepair() && mechanic.getImportantParts() >= midLevelMechanic.getImportantParts()) {
+                mechanic.setPosition("Mid-level Mechanic");
+                mechanicRepository.save(mechanic);
+                return true;
+            }
+        }
+        return false;
     }
 }

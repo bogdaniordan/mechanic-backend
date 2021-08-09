@@ -66,4 +66,10 @@ public class MechanicController {
         List<Mechanic> mechanics = mechanicService.getMechanicsBySpecialization(specialization);
         return new ResponseEntity<>(mechanics, HttpStatus.OK);
     }
+
+    @PostMapping("/hire-mechanic")
+    public ResponseEntity<Boolean> hireMechanic(@RequestBody Mechanic mechanic) {
+        Boolean hired = mechanicService.hireMechanic(mechanic);
+        return new ResponseEntity<>(hired, HttpStatus.OK);
+    }
 }

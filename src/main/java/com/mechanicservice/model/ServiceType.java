@@ -1,5 +1,7 @@
 package com.mechanicservice.model;
 
+import java.util.Random;
+
 public enum ServiceType {
     OIL_CHANGE("Oil change, filters and lube", "https://cdn11.bigcommerce.com/s-ycu4zkmhpl/images/stencil/830x518/uploaded_images/oil-change-101.jpg?t=1561563671", 100, "An engine consists of many moving parts such as pistons and valves. Your engine oil’s lubricating properties help to protect these parts by reducing friction. After the recommended oil change interval, engine oil will deteriorate and will not be able to fully protect the components from friction which will lead to wear and damage.", "OIL_CHANGE"),
     ENGINE_REPAIR("Engine repair", "https://www.indoormedia.com/wp-content/uploads/2019/10/marketing-ideas-for-auto-repair.jpg", 1200, "The engine is a sensitive piece of machinery, powering your vehicle to get you from point A to point B. Modern engines are also referred to as internal combustion engines; they work by heating and combusting fuel inside to move your vehicle by powering pistons. The main outer portion of the engine is called the engine block, it is a large structure with large cylinders where the pistons can move inside as the engine is powered. Cylinders, and other passages built into the engine, allow coolant to flow, which in turn, cools the engine as it works.", "ENGINE_REPAIR"),
@@ -12,11 +14,18 @@ public enum ServiceType {
     public String description;
     public String upperCaseName;
 
+    private static final Random RANDOM = new Random();
+
     ServiceType(String name, String pictureURL, int price, String description, String upperCaseName) {
         this.name = name;
         this.pictureURL = pictureURL;
         this.price = price;
         this.description = description;
         this.upperCaseName = upperCaseName;
+    }
+
+    public static ServiceType getRandomServiceType() {
+        var values = ServiceType.values();
+        return values[RANDOM.nextInt(values.length)];
     }
 }
