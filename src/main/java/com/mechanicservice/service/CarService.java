@@ -9,7 +9,6 @@ import com.mechanicservice.repository.CustomerRepository;
 import com.mechanicservice.repository.MechanicRepository;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +34,6 @@ public class CarService {
         Mechanic mechanic = mechanicRepository.findById(mechanicId)
                 .orElseThrow(() -> new ResourceNotFoundException("Unable to find mechanic with id: " + mechanicId));
         car.assignMechanic(mechanic);
-        System.out.println(car.getAssignedMechanic().toString());
         return carRepository.save(car);
     }
 
@@ -54,14 +52,13 @@ public class CarService {
 
     public Car updateCarRepairStatus(Long id) {
         Car car = findById(id);
-        car.setRepairedstatus(RepairedStatus.REPAIRED);
+        car.setRepairedstatus(RepairedStatus.GETTING_REPAIRED);
         return carRepository.save(car);
     }
 
     public Car replaceCustomerCar(Car car, Long id) {
         carRepository.save(car);
         Customer customer = customerService.findById(id);
-//        customer.setOwnedCar(car);
         customer.setCars(List.of(car));
         customerRepository.save(customer);
         return car;
@@ -83,7 +80,11 @@ public class CarService {
                 .orElseThrow(() -> new ResourceNotFoundException("Unable to find customer id: " + id));
     }
 
-    public Car saveCarInDB(Car car) {
-        return carRepository.save(car);
+    public void saveCarInDB(Car car) {
+        carRepository.save(car);
+    }
+
+    public Boolean carIsDiscounted(String carBrand, Long carId) {
+        return findById(carId).getBrandName().equals(carBrand);
     }
 }

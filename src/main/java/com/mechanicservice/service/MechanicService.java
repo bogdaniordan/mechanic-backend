@@ -6,6 +6,7 @@ import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.model.ServiceType;
 import com.mechanicservice.repository.MechanicRepository;
 import com.mechanicservice.repository.ServiceRepository;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,13 +73,17 @@ public class MechanicService {
 
     public ServiceType getMostNeededService() {
         HashMap<ServiceType, Integer> mechanicsPerSpecialization = new HashMap<>();
-        for(ServiceType serviceType: ServiceType.values()) {
+        for (ServiceType serviceType: ServiceType.values()) {
             if (!mechanicsPerSpecialization.containsKey(serviceType)) {
                 mechanicsPerSpecialization.put(serviceType, 1);
             } else {
                 mechanicsPerSpecialization.replace(serviceType, mechanicsPerSpecialization.get(serviceType) + 1);
             }
         }
+        return chooseMostNeededService(mechanicsPerSpecialization);
+    }
+
+    public ServiceType chooseMostNeededService(HashMap<ServiceType, Integer> mechanicsPerSpecialization) {
         ServiceType serviceType = ServiceType.getRandomServiceType();
         int maxMechanicsNumber = mechanicsPerSpecialization.get(serviceType);
         for (Map.Entry<ServiceType, Integer> entry: mechanicsPerSpecialization.entrySet()) {

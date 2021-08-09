@@ -3,6 +3,7 @@ package com.mechanicservice.controller;
 
 import com.mechanicservice.model.Car;
 import com.mechanicservice.service.CarService;
+import com.mechanicservice.util.DiscountCar;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -93,4 +94,16 @@ public class CarController {
         carService.addCarToCustomer(car, customerId);
     }
 
+    @PostMapping("/car-brand-discounted/{id}")
+    public ResponseEntity<Boolean> carIsDiscounted(@RequestBody String carBrand,
+                                                   @PathVariable Long id) {
+        log.info("Checking if car with id: " + id + " is discounted.");
+        return new ResponseEntity<>(carService.carIsDiscounted(carBrand, id), HttpStatus.OK);
+    }
+
+//    @GetMapping("/discounted-car")
+//    public ResponseEntity<String> getDiscountedCar() {
+//        log.info("Fetching discounted car brand.");
+//        return new ResponseEntity<>(DiscountCar.getRandomCarBrand(), HttpStatus.OK);
+//    }
 }
