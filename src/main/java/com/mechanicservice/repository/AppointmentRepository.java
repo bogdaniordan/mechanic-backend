@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     Optional<List<Appointment>> getAppointmentsByCustomer_Id(Long customer_id);
     Optional<List<Appointment>> getAppointmentsByMechanic_Id(Long mechanic_id);
+    Optional<List<Appointment>> getAppointmentsByCar_Id(Long car_id);
+
 }

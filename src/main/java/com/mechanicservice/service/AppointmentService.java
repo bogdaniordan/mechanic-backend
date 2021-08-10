@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,11 +27,11 @@ public class AppointmentService {
     public Appointment addNewAppointment(Appointment appointment, Long customerId, Long mechanicId, Long carId) throws MessagingException {
         Customer customer = customerService.findById(customerId);
         Mechanic mechanic = mechanicService.findById(mechanicId);
-        Car car = setCarToRepaired(carId);
+        Car car = setCarStatus(carId, RepairedStatus.GETTING_REPAIRED);
         appointment.setCustomer(customer);
         appointment.setMechanic(mechanic);
         appointment.setCar(car);
-        Email.send(customer.getEmail(), customer, appointment);
+//        Email.send(customer.getEmail(), customer, appointment);
         return appointmentRepository.save(appointment);
     }
 
@@ -39,9 +40,9 @@ public class AppointmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("No appointment for customer with id: " + id));
     }
 
-    private Car setCarToRepaired(Long carId) {
+    private Car setCarStatus(Long carId, RepairedStatus repairedStatus) {
         Car car = carService.findById(carId);
-        car.setRepairedstatus(RepairedStatus.GETTING_REPAIRED);
+        car.setRepairedstatus(repairedStatus);
         carService.saveCarInDB(car);
         return car;
     }
@@ -49,5 +50,23 @@ public class AppointmentService {
     public List<Appointment> getByMechanicId(Long id) {
         return appointmentRepository.getAppointmentsByMechanic_Id(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Couldn't find appointment with mechanic id: " + id));
+    }
+
+
+    public Boolean carHasBeenRepaired(Long carId) {
+        if (appointmentRepository.getAppointmentsByCar_Id(carId).isPresent()) {
+            List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId).get();
+            if (appointments.size() == 0) {
+                return false;
+            }
+            LocalDate mostRecentDate = appointments.stream()
+                    .map(date -> LocalDate.parse(date.getLocalDate()))
+                    .max(LocalDate::compareTo)
+                            .orElse(null);
+            if (LocalDate.now().compareTo(mostRecentDate) >= 0)
+            setCarStatus(carId, RepairedStatus.REPAIRED);
+            return true;
+        }
+        return false;
     }
 }

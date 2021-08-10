@@ -36,6 +36,8 @@ public class Email {
 
     }
 
+    // add one with user and password for registration
+
     private static Message prepareMessage(Session session, String myEmail, String recipient, Customer customer, Appointment appointment) {
         try {
             Message message = new MimeMessage(session);

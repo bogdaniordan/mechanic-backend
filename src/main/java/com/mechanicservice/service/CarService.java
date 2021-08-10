@@ -85,6 +85,6 @@ public class CarService {
     }
 
     public Boolean carIsDiscounted(String carBrand, Long carId) {
-        return findById(carId).getBrandName().equals(carBrand);
+        return findById(carId).getBrandName().equals(carBrand.substring(0, carBrand.length() - 1));
     }
 }

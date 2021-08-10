@@ -2,8 +2,10 @@ package com.mechanicservice.controller;
 
 
 import com.mechanicservice.model.Car;
+import com.mechanicservice.service.AppointmentService;
 import com.mechanicservice.service.CarService;
 import com.mechanicservice.util.DiscountCar;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +19,11 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/cars")
+@AllArgsConstructor
 public class CarController {
 
-    @Autowired
-    private CarService carService;
+    private final CarService carService;
+    private final AppointmentService appointmentService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Car> getCar(@PathVariable Long id) {
@@ -106,4 +109,10 @@ public class CarController {
 //        log.info("Fetching discounted car brand.");
 //        return new ResponseEntity<>(DiscountCar.getRandomCarBrand(), HttpStatus.OK);
 //    }
+
+    @GetMapping("/car-has-repaired/{id}")
+    public ResponseEntity<Boolean> casHasBeenRepaired(@PathVariable Long id) {
+        log.info("Checking if the car with id " + id + " has been had an appointment and setting it's status to repaired");
+        return new ResponseEntity<>(appointmentService.carHasBeenRepaired(id), HttpStatus.OK);
+    }
 }
