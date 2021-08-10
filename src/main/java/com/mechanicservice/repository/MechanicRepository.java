@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface MechanicRepository extends JpaRepository<Mechanic, Long> {
     Optional<List<Mechanic>> getMechanicBySpecialization(ServiceType specialization);
+    Optional<Mechanic> getMechanicByEmail(String email);
 }

@@ -1,12 +1,17 @@
 package com.mechanicservice.controller;
 
 
+import com.mechanicservice.dto.MechanicCredentials;
+import com.mechanicservice.dto.MechanicLoginResponse;
 import com.mechanicservice.dto.UserCredentials;
 import com.mechanicservice.dto.UserLoginResponse;
+import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.model.User;
+import com.mechanicservice.repository.MechanicRepository;
 import com.mechanicservice.repository.UserRepository;
 import com.mechanicservice.security.JwtTokenService;
 import com.mechanicservice.service.CustomerService;
+import com.mechanicservice.service.MechanicService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +33,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @Slf4j
-@RequestMapping("/users")
+//@RequestMapping("/users")
 @AllArgsConstructor
 public class AuthenticationController {
 
@@ -36,8 +41,9 @@ public class AuthenticationController {
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
+    private final MechanicService mechanicService;
 
-    @PostMapping("/register")
+    @PostMapping("/users/register")
     public ResponseEntity<String> register(@RequestBody UserCredentials form) {
         try {
             User user = User.builder().username(form.getUsername())
@@ -49,12 +55,53 @@ public class AuthenticationController {
             userRepository.save(user);
             return ResponseEntity.ok("Account created!");
         } catch (Exception e) {
-            throw new BadCredentialsException("Accound could not be created!");
+            throw new BadCredentialsException("Account could not be created!");
         }
     }
 
+    @PostMapping("/mechanics/register")
+    public ResponseEntity<String> register(@RequestBody Mechanic mechanic) {
+        try {
+            mechanic.setRoles(List.of("ROLE_USER", "ROLE_ADMIN"));
+            mechanicService.save(mechanic);
+            return ResponseEntity.ok("Account created!");
+        } catch (Exception e) {
+            throw new BadCredentialsException("Account could not be created!");
+        }
+    }
 
-    @PostMapping("/login")
+    @PostMapping("/mechanics/login")
+    public ResponseEntity<MechanicLoginResponse> login(@RequestBody MechanicCredentials form) {
+        try {
+            String email = form.getEmail();
+
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(email, form.getPassword())
+            );
+
+            List<String> roles = authentication.getAuthorities()
+                    .stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .collect(Collectors.toList());
+            String token = jwtTokenService.createToken(email, roles);
+
+            MechanicLoginResponse response = MechanicLoginResponse.builder()
+                            .email(email)
+                                    .id(mechanicService.getMechanicIdByEmail(email))
+                                            .roles(roles)
+                                                    .token(token)
+                                                            .build();
+
+            System.out.println(response.toString());
+
+            return ResponseEntity.ok(response);
+
+        } catch (UsernameNotFoundException e) {
+            throw new BadCredentialsException("Invalid username/password supplied");
+        }
+    }
+
+    @PostMapping("/users/login")
     public ResponseEntity<UserLoginResponse> login(@RequestBody UserCredentials form) {
         try {
             String username = form.getUsername();
@@ -85,7 +132,7 @@ public class AuthenticationController {
         }
     }
 
-    @GetMapping("/get-fullname/{username}")
+    @GetMapping("/users/get-fullname/{username}")
     public ResponseEntity<String> getUserFullName(@PathVariable String username) {
         log.info("Getting full name of user with username: " + username);
         User user = userRepository.findByUsername(username)

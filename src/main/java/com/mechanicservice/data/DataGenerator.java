@@ -13,7 +13,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class Runner implements CommandLineRunner {
+public class DataGenerator implements CommandLineRunner {
     private final CarRepository carRepository;
     private final CustomerRepository customerRepository;
     private final MechanicRepository mechanicRepository;

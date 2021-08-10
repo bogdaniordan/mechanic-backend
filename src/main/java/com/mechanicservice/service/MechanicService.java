@@ -95,6 +95,10 @@ public class MechanicService {
         return serviceType;
     }
 
+    public Mechanic save(Mechanic mechanic) {
+        return mechanicRepository.save(mechanic);
+    }
+
     public Boolean hireMechanic(Mechanic mechanic) {
         if (getMostNeededService() == mechanic.getSpecialization()) {
             mechanic.setPosition("Junior Mechanic");
@@ -111,5 +115,12 @@ public class MechanicService {
             }
         }
         return false;
+    }
+
+
+    public Long getMechanicIdByEmail(String email) {
+        Mechanic mechanic = mechanicRepository.getMechanicByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find mechanic with email: " + email));
+        return mechanic.getId();
     }
 }

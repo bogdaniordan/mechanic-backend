@@ -1,6 +1,7 @@
 package com.mechanicservice.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
@@ -13,6 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Mechanic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +24,7 @@ public class Mechanic {
     private ServiceType specialization;
     private String picture;
     @OneToMany
-    private List<Car> assignedCars;
+    private List<Car> assignedCars = new ArrayList<>();
     private String description;
     private int experience;
     private int automotiveRepair;
@@ -32,6 +34,10 @@ public class Mechanic {
     private String phoneNumber;
     private String email;
     private String position;
+    // TO DOOOOOOOOOOOOOOOO
+    private String password;
+    @ElementCollection
+    private List<String> roles = new ArrayList<>();
 
     public Mechanic(String name, ServiceType specialization, String picture, String description, int experience, int automotive_repair, int engine_repair, int important_parts, int brake_repair, String phoneNumber, String position) {
         this.name = name;
@@ -46,7 +52,6 @@ public class Mechanic {
         this.phoneNumber = phoneNumber;
         this.email = nameToEmail(name);
         this.position = position;
-        assignedCars = new ArrayList<>();
     }
 
 
