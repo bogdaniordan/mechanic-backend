@@ -21,6 +21,10 @@ public class Appointment {
     private String localDate;
     private String time;
     private String notes;
+    private boolean approved = false;
+    private boolean seen = false;
+    private boolean done = false;
+    private boolean declined = false;
     @ManyToOne
     private Customer customer;
     @ManyToOne
