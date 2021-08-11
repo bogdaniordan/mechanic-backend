@@ -1,17 +1,16 @@
 package com.mechanicservice.controller;
 
-import com.mechanicservice.model.CarService;
-import com.mechanicservice.model.Mechanic;
-import com.mechanicservice.model.ServiceType;
 import com.mechanicservice.dto.ServiceTypeDTO;
-import com.mechanicservice.service.CarServiceService;
+import com.mechanicservice.model.ServiceType;
 import com.mechanicservice.service.MechanicService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;

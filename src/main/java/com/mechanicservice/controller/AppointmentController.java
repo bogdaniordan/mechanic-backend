@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @Slf4j
 @RequestMapping("/appointments")

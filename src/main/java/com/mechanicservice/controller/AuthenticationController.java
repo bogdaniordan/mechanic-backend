@@ -53,7 +53,7 @@ public class AuthenticationController {
                     .secondName(form.getSecondName())
                     .build();
             userRepository.save(user);
-            return ResponseEntity.ok("Account created!");
+            return ResponseEntity.ok("User account created!");
         } catch (Exception e) {
             throw new BadCredentialsException("Account could not be created!");
         }
@@ -64,7 +64,7 @@ public class AuthenticationController {
         try {
             mechanic.setRoles(List.of("ROLE_USER", "ROLE_ADMIN"));
             mechanicService.save(mechanic);
-            return ResponseEntity.ok("Account created!");
+            return ResponseEntity.ok("Mechanic account created!");
         } catch (Exception e) {
             throw new BadCredentialsException("Account could not be created!");
         }
