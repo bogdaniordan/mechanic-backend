@@ -24,25 +24,27 @@ public class CustomUserCredentialsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (userRepository.findByUsername(username).isPresent()) {
-            com.mechanicservice.model.User user = userRepository.findByUsername(username).get();
-
-            return new User(user.getUsername(), user.getPassword(),
-                    user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
-            );
+            return userForCustomer(username);
         }
+        return userForMechanic(username);
+    }
 
+
+    private User userForCustomer(String username) {
+        com.mechanicservice.model.User user = userRepository.findByUsername(username)
+                        .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + "not found!"));
+
+        return new User(user.getUsername(), user.getPassword(),
+                user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
+        );
+    }
+
+    private User userForMechanic(String username) {
         Mechanic mechanic = mechanicRepository.getMechanicByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Mechanic with email: " + username + " not found!"));
         return new User(mechanic.getEmail(), mechanic.getPassword(),
                 mechanic.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
         );
-
-//        com.mechanicservice.model.User user = userRepository.findByUsername(username)
-//                .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + "not found!"));
-//
-//        return new User(user.getUsername(), user.getPassword(),
-//                user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
-//        );
     }
 
 }

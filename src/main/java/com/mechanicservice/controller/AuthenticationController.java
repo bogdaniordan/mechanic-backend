@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @Slf4j
-//@RequestMapping("/users")
+@RequestMapping("/auth")
 @AllArgsConstructor
 public class AuthenticationController {
 
