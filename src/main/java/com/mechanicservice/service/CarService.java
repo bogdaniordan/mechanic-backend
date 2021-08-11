@@ -3,7 +3,7 @@ package com.mechanicservice.service;
 import com.mechanicservice.model.Car;
 import com.mechanicservice.model.Customer;
 import com.mechanicservice.model.Mechanic;
-import com.mechanicservice.model.RepairedStatus;
+import com.mechanicservice.enums.RepairedStatus;
 import com.mechanicservice.repository.CarRepository;
 import com.mechanicservice.repository.CustomerRepository;
 import com.mechanicservice.repository.MechanicRepository;

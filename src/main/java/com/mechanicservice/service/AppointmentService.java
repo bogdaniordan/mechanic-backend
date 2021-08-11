@@ -1,14 +1,10 @@
 package com.mechanicservice.service;
 
+import com.mechanicservice.enums.RepairedStatus;
 import com.mechanicservice.model.*;
 import com.mechanicservice.repository.AppointmentRepository;
-import com.mechanicservice.repository.CarRepository;
-import com.mechanicservice.repository.CustomerRepository;
-import com.mechanicservice.repository.MechanicRepository;
-import com.mechanicservice.util.Email;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;

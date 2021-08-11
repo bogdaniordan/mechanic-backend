@@ -1,5 +1,8 @@
 package com.mechanicservice.data;
 
+import com.mechanicservice.enums.FuelType;
+import com.mechanicservice.enums.Rating;
+import com.mechanicservice.enums.RepairedStatus;
 import com.mechanicservice.model.*;
 import com.mechanicservice.repository.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -17,7 +19,6 @@ public class DataGenerator implements CommandLineRunner {
     private final CarRepository carRepository;
     private final CustomerRepository customerRepository;
     private final MechanicRepository mechanicRepository;
-    private final ServiceRepository serviceRepository;
     private final TestimonialRepository testimonialRepository;
     private final UserRepository userRepository;
     private final AppointmentRepository appointmentRepository;

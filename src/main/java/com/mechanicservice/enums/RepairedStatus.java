@@ -1,4 +1,4 @@
-package com.mechanicservice.model;
+package com.mechanicservice.enums;
 
 public enum RepairedStatus {
     REPAIRED,

@@ -1,16 +1,11 @@
 package com.mechanicservice.service;
 
 import com.mechanicservice.dto.ServiceTypeDTO;
-import com.mechanicservice.model.CarService;
 import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.model.ServiceType;
 import com.mechanicservice.repository.MechanicRepository;
-import com.mechanicservice.repository.ServiceRepository;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -21,7 +16,6 @@ import java.util.stream.Collectors;
 public class MechanicService {
 
     private MechanicRepository mechanicRepository;
-    private ServiceRepository serviceRepository;
 
     public List<Mechanic> getAllMechanics() {
         return mechanicRepository.findAll();
@@ -47,8 +41,8 @@ public class MechanicService {
     public Mechanic deleteById(Long id) {
         if (mechanicRepository.findById(id).isPresent()) {
             Mechanic mechanic = mechanicRepository.findById(id).get();
-            Optional<List<CarService>> servicesByMechanic = serviceRepository.getServicesByMechanic_Id(id);
-            servicesByMechanic.ifPresent(carServices -> serviceRepository.deleteAll(carServices));
+//            Optional<List<CarService>> servicesByMechanic = serviceRepository.getServicesByMechanic_Id(id);
+//            servicesByMechanic.ifPresent(carServices -> serviceRepository.deleteAll(carServices));
             mechanicRepository.delete(mechanic);
             return mechanic;
         }

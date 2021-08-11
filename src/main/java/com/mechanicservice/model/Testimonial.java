@@ -1,5 +1,6 @@
 package com.mechanicservice.model;
 
+import com.mechanicservice.enums.Rating;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
