@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity(name = "appointment")
 @Data
@@ -31,6 +32,8 @@ public class Appointment {
     private Mechanic mechanic;
     @OneToOne
     private Car car;
+    @OneToMany
+    private List<Message> messages;
 
     public Appointment(ServiceType requiredservice, String localDate, String time, String notes) {
         this.requiredservice = requiredservice;
