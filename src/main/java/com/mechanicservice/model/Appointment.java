@@ -24,7 +24,7 @@ public class Appointment {
     private String time;
     private String notes;
     @Enumerated(EnumType.STRING)
-    private AppointmentStatus appointmentStatus;
+    private AppointmentStatus appointmentStatus = AppointmentStatus.NEW;
     @ManyToOne
     private Customer customer;
     @ManyToOne
