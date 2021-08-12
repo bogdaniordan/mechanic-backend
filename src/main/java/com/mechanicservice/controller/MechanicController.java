@@ -72,4 +72,9 @@ public class MechanicController {
         Boolean hired = mechanicService.hireMechanic(mechanic);
         return new ResponseEntity<>(hired, HttpStatus.OK);
     }
+
+    @GetMapping("/by-name/{name}")
+    public ResponseEntity<Mechanic> getByName(@PathVariable String name) {
+        return new ResponseEntity<>(mechanicService.getMechanicByName(name), HttpStatus.OK);
+    }
 }

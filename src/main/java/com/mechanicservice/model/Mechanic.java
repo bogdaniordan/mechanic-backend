@@ -53,7 +53,6 @@ public class Mechanic {
         this.position = position;
     }
 
-
     private String nameToEmail(String name) {
         StringBuilder email = new StringBuilder();
         for(int i = 0; i < name.length(); i++) {

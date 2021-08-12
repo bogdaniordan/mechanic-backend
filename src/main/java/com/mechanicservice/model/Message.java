@@ -21,11 +21,11 @@ public class Message {
     private Long id;
     private String authorType;
     private String message;
-    private LocalTime time;
+    private String time;
 
     public Message(String authorType, String message, LocalTime time) {
         this.authorType = authorType;
         this.message = message;
-        this.time = time;
+        this.time = time.toString();
     }
 }

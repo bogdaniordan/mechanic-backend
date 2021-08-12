@@ -85,4 +85,9 @@ public class CustomerController {
         Customer updatedCustomer = customerService.updateCustomer(customer, customerId);
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
+
+    @GetMapping("/customer-by-name/{name}")
+    public ResponseEntity<Customer> getByName(@PathVariable String name) {
+        return new ResponseEntity<>(customerService.getCustomerByName(name), HttpStatus.OK);
+    }
 }

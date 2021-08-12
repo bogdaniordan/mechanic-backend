@@ -94,4 +94,9 @@ public class CustomerService {
     public void saveCustomer(Customer customer) {
         customerRepository.save(customer);
     }
+
+    public Customer getCustomerByName(String name) {
+        return customerRepository.getCustomerByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find customer with name: " + name));
+    }
 }

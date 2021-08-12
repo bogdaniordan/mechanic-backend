@@ -89,8 +89,8 @@ public class MechanicService {
         return serviceType;
     }
 
-    public Mechanic save(Mechanic mechanic) {
-        return mechanicRepository.save(mechanic);
+    public void save(Mechanic mechanic) {
+        mechanicRepository.save(mechanic);
     }
 
     public Boolean hireMechanic(Mechanic mechanic) {
@@ -116,5 +116,10 @@ public class MechanicService {
         Mechanic mechanic = mechanicRepository.getMechanicByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Couldn't find mechanic with email: " + email));
         return mechanic.getId();
+    }
+
+    public Mechanic getMechanicByName(String name) {
+        return mechanicRepository.getMechanicByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Could not find mechanic with name: " + name));
     }
 }
