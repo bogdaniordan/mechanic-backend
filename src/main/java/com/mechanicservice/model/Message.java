@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity(name = "message")
 @Data
@@ -18,7 +19,13 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String author;
+    private String authorType;
     private String message;
-    private LocalDate date;
+    private LocalTime time;
+
+    public Message(String authorType, String message, LocalTime time) {
+        this.authorType = authorType;
+        this.message = message;
+        this.time = time;
+    }
 }

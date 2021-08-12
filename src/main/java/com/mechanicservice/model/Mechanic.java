@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class Mechanic {
     private String phoneNumber;
     private String email;
     private String position;
-    // TO DOOOOOOOOOOOOOOOO
+    // TO DO
     private String password;
     @ElementCollection
     private List<String> roles = new ArrayList<>();

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Component
@@ -22,6 +23,7 @@ public class DataGenerator implements CommandLineRunner {
     private final TestimonialRepository testimonialRepository;
     private final UserRepository userRepository;
     private final AppointmentRepository appointmentRepository;
+    private final MessageRepository messageRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -66,6 +68,16 @@ public class DataGenerator implements CommandLineRunner {
         appointment.setCustomer(customer);
         appointment.setCar(car);
 
+        Message message = new Message("customer", "Sa ii dai blana!", LocalTime.now());
+        Message message1 = new Message("mechanic", "II dau blana sa moara frantzaaa!", LocalTime.now());
+
+        messageRepository.save(message);
+        messageRepository.save(message1);
+
+        appointment.addMessage(message);
+        appointment.addMessage(message1);
+
+
         Appointment appointment1 = new Appointment(ServiceType.OIL_CHANGE, LocalDate.now().toString(), "11:21", "Baga ulei k te sparg!");
         appointment1.setMechanic(mechanic);
         appointment1.setCustomer(customer);
@@ -101,8 +113,14 @@ public class DataGenerator implements CommandLineRunner {
         testimonialRepository.save(testimonial2);
         testimonialRepository.save(testimonial3);
 
+
         appointmentRepository.save(appointment);
         appointmentRepository.save(appointment1);
+
+
+
+
+
 
 
     }

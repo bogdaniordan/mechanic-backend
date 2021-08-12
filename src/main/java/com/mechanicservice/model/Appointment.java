@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "appointment")
@@ -33,7 +34,7 @@ public class Appointment {
     @OneToOne
     private Car car;
     @OneToMany
-    private List<Message> messages;
+    private List<Message> messages = new ArrayList<>();
 
     public Appointment(ServiceType requiredservice, String localDate, String time, String notes) {
         this.requiredservice = requiredservice;
@@ -42,4 +43,9 @@ public class Appointment {
         this.notes = notes;
         price = requiredservice.price;
     }
+
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
+
 }
