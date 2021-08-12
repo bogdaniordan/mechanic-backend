@@ -1,5 +1,7 @@
 package com.mechanicservice.model;
 
+import com.mechanicservice.enums.AppointmentStatus;
+import com.mechanicservice.service.AppointmentService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,10 +23,8 @@ public class Appointment {
     private String localDate;
     private String time;
     private String notes;
-    private boolean approved = false;
-    private boolean seen = false;
-    private boolean done = false;
-    private boolean declined = false;
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus appointmentStatus;
     @ManyToOne
     private Customer customer;
     @ManyToOne

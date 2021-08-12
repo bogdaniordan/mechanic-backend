@@ -1,5 +1,6 @@
 package com.mechanicservice.controller;
 
+import com.mechanicservice.enums.AppointmentStatus;
 import com.mechanicservice.model.Appointment;
 import com.mechanicservice.service.AppointmentService;
 import lombok.AllArgsConstructor;
@@ -44,5 +45,11 @@ public class AppointmentController {
         log.info("Fetching appointments made with mechanic: " + id);
         List<Appointment> appointments = appointmentService.getByMechanicId(id);
         return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
+
+    @GetMapping("/set-as-seen/{id}")
+    public ResponseEntity<Appointment> setAsSeen(@PathVariable Long id) {
+        log.info("Setting as seen appointments with id: " + id);
+        return new ResponseEntity<>(appointmentService.setStatus(id, AppointmentStatus.SEEN), HttpStatus.OK);
     }
 }

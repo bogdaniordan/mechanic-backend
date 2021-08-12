@@ -1,5 +1,6 @@
 package com.mechanicservice.service;
 
+import com.mechanicservice.enums.AppointmentStatus;
 import com.mechanicservice.enums.RepairedStatus;
 import com.mechanicservice.model.*;
 import com.mechanicservice.repository.AppointmentRepository;
@@ -49,20 +50,43 @@ public class AppointmentService {
     }
 
 
+//    public Boolean carHasBeenRepaired(Long carId) {
+//        if (appointmentRepository.getAppointmentsByCar_Id(carId).isPresent()) {
+//            List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId).get();
+//            if (appointments.size() == 0) {
+//                return false;
+//            }
+//            LocalDate mostRecentDate = appointments.stream()
+//                    .map(date -> LocalDate.parse(date.getLocalDate()))
+//                    .max(LocalDate::compareTo)
+//                            .orElse(null);
+//            if (LocalDate.now().compareTo(mostRecentDate) >= 0)
+//            setCarStatus(carId, RepairedStatus.REPAIRED);
+//            return true;
+//        }
+//        return false;
+//    }
+
     public Boolean carHasBeenRepaired(Long carId) {
-        if (appointmentRepository.getAppointmentsByCar_Id(carId).isPresent()) {
-            List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId).get();
-            if (appointments.size() == 0) {
-                return false;
+        List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId)
+                .orElseThrow(() -> new ResourceNotFoundException("Cannot find appointments for car with id: " + carId));
+        for(Appointment appointment: appointments) {
+            if (appointment.getAppointmentStatus() == AppointmentStatus.DONE) {
+                return true;
             }
-            LocalDate mostRecentDate = appointments.stream()
-                    .map(date -> LocalDate.parse(date.getLocalDate()))
-                    .max(LocalDate::compareTo)
-                            .orElse(null);
-            if (LocalDate.now().compareTo(mostRecentDate) >= 0)
-            setCarStatus(carId, RepairedStatus.REPAIRED);
-            return true;
         }
         return false;
+    }
+
+
+    public Appointment setStatus(Long id, AppointmentStatus appointmentStatus) {
+        Appointment appointment = findById(id);
+        appointment.setAppointmentStatus(appointmentStatus);
+        return appointmentRepository.save(appointment);
+    }
+
+    public Appointment findById(Long id) {
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Couldn't find appointment with id: " + id));
     }
 }
