@@ -9,7 +9,6 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -92,5 +91,9 @@ public class AppointmentService {
 
     public void save(Appointment appointment) {
         appointmentRepository.save(appointment);
+    }
+
+    public long newAppointments() {
+        return appointmentRepository.findAll().stream().filter(appointment -> appointment.getAppointmentStatus() == AppointmentStatus.NEW).count();
     }
 }

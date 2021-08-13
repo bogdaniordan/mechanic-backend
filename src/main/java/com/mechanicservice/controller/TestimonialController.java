@@ -1,6 +1,7 @@
 package com.mechanicservice.controller;
 
 
+import com.mechanicservice.enums.Rating;
 import com.mechanicservice.model.Testimonial;
 import com.mechanicservice.service.TestimonialService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -41,6 +43,12 @@ public class TestimonialController {
     public ResponseEntity<Boolean> carHasBeenReviewed(@PathVariable Long id) {
         log.info("Checking if car with id " + id + " has been reviewed.");
         return new ResponseEntity<>(testimonialService.canIsReviewed(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/all-ratings/{mechanicId}")
+    public ResponseEntity<HashMap<Rating, Integer>> getRatings(@PathVariable Long mechanicId) {
+        log.info("Fetching ratings for mechanic with id: "+ mechanicId);
+        return new ResponseEntity<>(testimonialService.getCountedRatings(mechanicId), HttpStatus.OK);
     }
 
 }

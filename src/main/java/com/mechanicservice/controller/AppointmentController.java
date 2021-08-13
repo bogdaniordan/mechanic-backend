@@ -86,4 +86,9 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentService.setStatus(id, status), HttpStatus.OK);
 
     }
+
+    @GetMapping("/new-appointments-number")
+    public ResponseEntity<Long> getNewAppointmentsNumber() {
+        return new ResponseEntity<>(appointmentService.newAppointments(), HttpStatus.OK);
+    }
 }
