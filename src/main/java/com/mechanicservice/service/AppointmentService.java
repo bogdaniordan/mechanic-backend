@@ -89,4 +89,5 @@ public class AppointmentService {
         return appointmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Couldn't find appointment with id: " + id));
     }
+
 }

@@ -5,6 +5,7 @@ import com.mechanicservice.model.CardDetails;
 import com.mechanicservice.model.User;
 import com.mechanicservice.model.Customer;
 import com.mechanicservice.service.CustomerService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +18,9 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/customers")
+@AllArgsConstructor
 public class CustomerController {
 
-    @Autowired
     private CustomerService customerService;
 
 

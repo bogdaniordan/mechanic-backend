@@ -17,4 +17,10 @@ public class MessageService {
         Appointment appointment = appointmentService.findById(appointmentId);
         return appointment.getMessages();
     }
+
+    public Message addMessage(Message message, Long appointmentId) {
+        Appointment appointment = appointmentService.findById(appointmentId);
+        appointment.addMessage(message);
+        return message;
+    }
 }
