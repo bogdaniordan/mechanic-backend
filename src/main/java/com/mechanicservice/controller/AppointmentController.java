@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -73,7 +75,9 @@ public class AppointmentController {
 
     @GetMapping("/get-all-statuses")
     public ResponseEntity<List<AppointmentStatus>> getStatuses() {
-        return new ResponseEntity<>(List.of(AppointmentStatus.values()), HttpStatus.OK);
+        List<AppointmentStatus> statuses = new ArrayList<>(Arrays.asList(AppointmentStatus.values()));
+        statuses.remove(AppointmentStatus.NEW);
+        return new ResponseEntity<>(statuses, HttpStatus.OK);
     }
 
     @GetMapping("/set-status/{status}/{id}")

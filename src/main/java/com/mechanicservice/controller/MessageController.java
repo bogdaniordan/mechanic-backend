@@ -1,7 +1,6 @@
 package com.mechanicservice.controller;
 
 import com.mechanicservice.model.Message;
-import com.mechanicservice.service.AppointmentService;
 import com.mechanicservice.service.MessageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -90,4 +90,7 @@ public class AppointmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Couldn't find appointment with id: " + id));
     }
 
+    public void save(Appointment appointment) {
+        appointmentRepository.save(appointment);
+    }
 }
