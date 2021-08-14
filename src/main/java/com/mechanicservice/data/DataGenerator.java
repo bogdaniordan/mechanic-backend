@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -68,8 +69,8 @@ public class DataGenerator implements CommandLineRunner {
         appointment.setCustomer(customer);
         appointment.setCar(car);
 
-        Message message = new Message("customer", "Sa ii dai blana!", LocalTime.now());
-        Message message1 = new Message("mechanic", "II dau blana sa moara frantzaaa!", LocalTime.now());
+        Message message = new Message("customer", "Sa ii dai blana!", LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+        Message message1 = new Message("mechanic", "II dau blana sa moara frantzaaa!", LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
         messageRepository.save(message);
         messageRepository.save(message1);

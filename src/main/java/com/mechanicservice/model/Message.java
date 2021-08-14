@@ -23,9 +23,9 @@ public class Message {
     private String message;
     private String time;
 
-    public Message(String authorType, String message, LocalTime time) {
+    public Message(String authorType, String message, String time) {
         this.authorType = authorType;
         this.message = message;
-        this.time = time.toString();
+        this.time = time;
     }
 }
