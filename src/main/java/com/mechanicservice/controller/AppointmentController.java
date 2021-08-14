@@ -49,30 +49,6 @@ public class AppointmentController {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
-//    @GetMapping("/set-as-seen/{id}")
-//    public ResponseEntity<Appointment> setAsSeen(@PathVariable Long id) {
-//        log.info("Setting as seen appointments with id: " + id);
-//        return new ResponseEntity<>(appointmentService.setStatus(id, AppointmentStatus.SEEN), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/set-as-declined/{id}")
-//    public ResponseEntity<Appointment> setAsDeclined(@PathVariable Long id) {
-//        log.info("Declining with id: " + id);
-//        return new ResponseEntity<>(appointmentService.setStatus(id, AppointmentStatus.DECLINED), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/set-as-done/{id}")
-//    public ResponseEntity<Appointment> setAsDone(@PathVariable Long id) {
-//        log.info("Setting as done appointments with id: " + id);
-//        return new ResponseEntity<>(appointmentService.setStatus(id, AppointmentStatus.DONE), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/set-as-approved/{id}")
-//    public ResponseEntity<Appointment> setAsApproved(@PathVariable Long id) {
-//        log.info("Setting as approved appointments with id: " + id);
-//        return new ResponseEntity<>(appointmentService.setStatus(id, AppointmentStatus.APPROVED), HttpStatus.OK);
-//    }
-
     @GetMapping("/get-all-statuses")
     public ResponseEntity<List<AppointmentStatus>> getStatuses() {
         List<AppointmentStatus> statuses = new ArrayList<>(Arrays.asList(AppointmentStatus.values()));

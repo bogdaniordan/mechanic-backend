@@ -45,10 +45,16 @@ public class TestimonialController {
         return new ResponseEntity<>(testimonialService.canIsReviewed(id), HttpStatus.OK);
     }
 
-    @GetMapping("/all-ratings/{mechanicId}")
-    public ResponseEntity<HashMap<Rating, Integer>> getRatings(@PathVariable Long mechanicId) {
+    @GetMapping("/mapped-ratings/{mechanicId}")
+    public ResponseEntity<HashMap<Rating, Integer>> getMappedRatings(@PathVariable Long mechanicId) {
         log.info("Fetching ratings for mechanic with id: "+ mechanicId);
         return new ResponseEntity<>(testimonialService.getCountedRatings(mechanicId), HttpStatus.OK);
     }
+
+    @GetMapping("/all-ratings")
+    public ResponseEntity<List<Rating>> getAllRatings() {
+        return new ResponseEntity<>(List.of(Rating.values()), HttpStatus.OK);
+    }
+
 
 }

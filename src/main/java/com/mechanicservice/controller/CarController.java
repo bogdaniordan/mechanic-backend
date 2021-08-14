@@ -110,9 +110,9 @@ public class CarController {
 //        return new ResponseEntity<>(DiscountCar.getRandomCarBrand(), HttpStatus.OK);
 //    }
 
-    @GetMapping("/car-has-repaired/{id}")
-    public ResponseEntity<Boolean> casHasBeenRepaired(@PathVariable Long id) {
-        log.info("Checking if the car with id " + id + " has been had an appointment and setting it's status to repaired");
-        return new ResponseEntity<>(appointmentService.carHasBeenRepaired(id), HttpStatus.OK);
-    }
+//    @GetMapping("/car-has-repaired/{id}")
+//    public ResponseEntity<Boolean> casHasBeenRepaired(@PathVariable Long id) {
+//        log.info("Checking if the car with id " + id + " has a DONE appointment and setting it's status to repaired");
+//        return new ResponseEntity<>(appointmentService.carHasBeenRepaired(id), HttpStatus.OK);
+//    }
 }

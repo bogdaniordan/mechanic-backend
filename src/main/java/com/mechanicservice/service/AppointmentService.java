@@ -66,20 +66,24 @@ public class AppointmentService {
 //        return false;
 //    }
 
-    public Boolean carHasBeenRepaired(Long carId) {
-        List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId)
-                .orElseThrow(() -> new ResourceNotFoundException("Cannot find appointments for car with id: " + carId));
-        for(Appointment appointment: appointments) {
-            if (appointment.getAppointmentStatus() == AppointmentStatus.DONE) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    public Boolean carHasBeenRepaired(Long carId) {
+//        List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Cannot find appointments for car with id: " + carId));
+//        for(Appointment appointment: appointments) {
+//            if (appointment.getAppointmentStatus() == AppointmentStatus.DONE) {
+//                carService.findById(carId).setRepairedstatus(RepairedStatus.REPAIRED);
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
 
     public Appointment setStatus(Long id, AppointmentStatus appointmentStatus) {
         Appointment appointment = findById(id);
+        if (appointmentStatus == AppointmentStatus.DONE) {
+            appointment.getCar().setRepairedstatus(RepairedStatus.REPAIRED);
+        }
         appointment.setAppointmentStatus(appointmentStatus);
         return appointmentRepository.save(appointment);
     }
