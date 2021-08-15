@@ -1,5 +1,7 @@
 package com.mechanicservice.service;
 
+import com.mechanicservice.aws.BucketName;
+import com.mechanicservice.aws.FileStore;
 import com.mechanicservice.dto.ServiceTypeDTO;
 import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.model.ServiceType;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 public class MechanicService {
 
     private MechanicRepository mechanicRepository;
+    private FileStore fileStore;
 
     public List<Mechanic> getAllMechanics() {
         return mechanicRepository.findAll();
@@ -121,5 +124,13 @@ public class MechanicService {
     public Mechanic getMechanicByName(String name) {
         return mechanicRepository.getMechanicByName(name)
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find mechanic with name: " + name));
+    }
+
+
+    public byte[] downloadImage(Long mechanicId) {
+        // path = bucketName + bucketFolder + key
+        String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), mechanicId);
+        String imageURL = findById(mechanicId).getPicture();
+        return fileStore.download(path, imageURL);
     }
 }

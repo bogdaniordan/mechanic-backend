@@ -4,7 +4,6 @@ import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.service.MechanicService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -76,5 +75,11 @@ public class MechanicController {
     @GetMapping("/by-name/{name}")
     public ResponseEntity<Mechanic> getByName(@PathVariable String name) {
         return new ResponseEntity<>(mechanicService.getMechanicByName(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/image/{mechanicId}/download")
+    public byte[] downloadImage(@PathVariable Long mechanicId) {
+        log.info("Fetching image for mechanic: " + mechanicId);
+        return mechanicService.downloadImage(mechanicId);
     }
 }

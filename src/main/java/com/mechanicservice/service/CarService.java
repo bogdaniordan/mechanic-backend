@@ -1,5 +1,7 @@
 package com.mechanicservice.service;
 
+import com.mechanicservice.aws.BucketName;
+import com.mechanicservice.aws.FileStore;
 import com.mechanicservice.model.Car;
 import com.mechanicservice.model.Customer;
 import com.mechanicservice.model.Mechanic;
@@ -21,6 +23,7 @@ public class CarService {
     private final CarRepository carRepository;
     private final CustomerRepository customerRepository;
     private final CustomerService customerService;
+    private final FileStore fileStore;
 
     public List<Car> getAllCars() {
         return carRepository.findAll();
@@ -86,5 +89,12 @@ public class CarService {
 
     public Boolean carIsDiscounted(String carBrand, Long carId) {
         return findById(carId).getBrandName().equals(carBrand.substring(0, carBrand.length() - 1));
+    }
+
+    public byte[] downloadImage(Long carId) {
+        // path = bucketName + bucketFolder + key
+        String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), carId);
+        String imageURL = findById(carId).getPicture();
+        return fileStore.download(path, imageURL);
     }
 }

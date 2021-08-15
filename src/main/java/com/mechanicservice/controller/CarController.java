@@ -115,4 +115,10 @@ public class CarController {
 //        log.info("Checking if the car with id " + id + " has a DONE appointment and setting it's status to repaired");
 //        return new ResponseEntity<>(appointmentService.carHasBeenRepaired(id), HttpStatus.OK);
 //    }
+
+    @GetMapping("/image/{carId}/download")
+    public byte[] downloadImage(@PathVariable Long carId) {
+        log.info("Fetching image for customer: " + carId);
+        return carService.downloadImage(carId);
+    }
 }

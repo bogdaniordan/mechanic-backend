@@ -26,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**", "/customers/add-customer/**", "/customers/image/**").permitAll()
+                .antMatchers("/auth/**", "/customers/add-customer/**",
+                        "/customers/image/**", "/cars/image/**", "/mechanics/image/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -105,9 +105,7 @@ public class CustomerService {
     public byte[] downloadImage(Long customerId) {
         // path = bucketName + bucketFolder + key
         String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), customerId);
-        System.out.println(path);
         String imageURL = findById(customerId).getPicture();
-        System.out.println(imageURL);
         return fileStore.download(path, imageURL);
     }
 }
