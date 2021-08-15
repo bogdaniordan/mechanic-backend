@@ -9,11 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -97,5 +100,15 @@ public class CustomerController {
     public byte[] downloadImage(@PathVariable Long customerId) {
         log.info("Fetching image for customer: " + customerId);
         return customerService.downloadImage(customerId);
+    }
+
+    @PostMapping(
+            path = "{customerId}/image/upload",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void uploadUserProfileImage(@PathVariable("customerId") Long customerId,
+                                       @RequestParam("file") MultipartFile file) {
+        customerService.uploadUserProfileImage(customerId, file);
     }
 }

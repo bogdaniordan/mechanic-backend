@@ -110,7 +110,7 @@ public class CustomerService {
         return fileStore.download(path, imageURL);
     }
 
-    void uploadUserProfileImage(Long customerId, MultipartFile file) {
+    public void uploadUserProfileImage(Long customerId, MultipartFile file) {
         // 1. Check if image is not empty
         isFileEmpty(file);
         // 2. If file is an image
