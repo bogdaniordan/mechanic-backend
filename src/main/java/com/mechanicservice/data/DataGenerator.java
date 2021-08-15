@@ -28,7 +28,7 @@ public class DataGenerator implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Mechanic mechanic =  new Mechanic("Nea Marin", ServiceType.ENGINE_REPAIR, "https://thumbor.unica.ro/unsafe/980x600/smart/filters:contrast(1):quality(80)/https://tvmania.ro/wp-content/uploads/2020/12/Nea-Marin-1.jpg","Best diesel engine mechanic. He has been repairing diesel since he was 2 days old and he drives like a retard.", 50, 35, 80, 40, 70, "07423929327", "Junior Mechanic");
+        Mechanic mechanic =  new Mechanic("Nea Marin", ServiceType.ENGINE_REPAIR, "https://thumbor.unica.ro/unsafe/980x600/smart/fil","Best diesel engine mechanic. He has been repairing diesel since he was 2 days old and he drives like a retard.", 50, 35, 80, 40, 70, "07423929327", "Junior Mechanic");
 //        mechanic.setEmail("nea_marin@gmail.com");
         mechanic.setPassword(BCrypt.hashpw("password", BCrypt.gensalt(12)));
         mechanic.setRoles(List.of("ROLE_USER", "ROLE_ADMIN"));
@@ -37,7 +37,7 @@ public class DataGenerator implements CommandLineRunner {
         Mechanic mechanic3 =  new Mechanic("Nea Dani", ServiceType.AIR_CONDITIONING_SYSTEM, "https://media.bzi.ro/unsafe/1060x600/smart/filters:contrast(3):format(jpeg):blur(1):quality(80)/http://www.bzi.ro/wp-content/uploads/1/257/Nicolae_Gutas.jpg", "Keeps equipment available for use by inspecting and testing vehicles; completing preventive maintenance such as, engine tune-ups, oil changes, tire rotation and changes, wheel balancing, replacing filters.", 60, 70, 80, 90, 99, "072129879", "DevOps Mechanic");
         Car car = new Car("Dacia", RepairedStatus.BROKEN, ServiceType.ENGINE_REPAIR, FuelType.DIESEL, "http://simplybucharest.ro/wp-content/uploads/2011/10/1300.jpg");
         car.assignMechanic(mechanic);
-        Customer customer = new Customer("Bodgan Iordan", "bogdan.iordan@yahoo.com", "0224342325", "Plutasilor", "Bucale", "https://asport.ro/wp-content/uploads/2021/01/gigi-becali.jpg", "software dev", "Male", 25);
+        Customer customer = new Customer("Bodgan Iordan", "bogdan.iordan@yahoo.com", "0224342325", "Plutasilor", "Bucale", "sergei.jpg", "software dev", "Male", 25);
         Customer otherCustomer = new Customer("Gigi Becali", "becali@gmail","928329", "Antareestrat", "4343", "https://asport.ro/wp-content/uploads/2021/01/gigi-becali.jpg", "software dev", "Not sure", 25);
         Car secondCar = new Car("Rolls Royce", RepairedStatus.BROKEN, ServiceType.POWER_STEERING_SYSTEM, FuelType.ELECTRIC, "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/2021-lamborghini-urus-mmp-1-1592423712.jpg?crop=1xw:0.84375xh;center,top&resize=480:*");
         Car thirdCar = new Car("Audi Q8", RepairedStatus.REPAIRED, ServiceType.OIL_CHANGE, FuelType.DIESEL, "https://www.auto-bild.ro/wp-content/uploads/2020/10/Audi-Q8-plug-in-hybrid-9.jpg");

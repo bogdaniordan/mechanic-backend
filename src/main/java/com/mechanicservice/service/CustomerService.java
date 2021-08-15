@@ -1,5 +1,7 @@
 package com.mechanicservice.service;
 
+import com.mechanicservice.aws.BucketName;
+import com.mechanicservice.aws.FileStore;
 import com.mechanicservice.model.Car;
 import com.mechanicservice.model.CardDetails;
 import com.mechanicservice.model.User;
@@ -21,7 +23,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
-    private final CardDetailsRepository cardDetailsRepository;
+    private final FileStore fileStore;
 
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
@@ -98,5 +100,14 @@ public class CustomerService {
     public Customer getCustomerByName(String name) {
         return customerRepository.getCustomerByName(name)
                 .orElseThrow(() -> new ResourceNotFoundException("Could not find customer with name: " + name));
+    }
+
+    public byte[] downloadImage(Long customerId) {
+        // path = bucketName + bucketFolder + key
+        String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), customerId);
+        System.out.println(path);
+        String imageURL = findById(customerId).getPicture();
+        System.out.println(imageURL);
+        return fileStore.download(path, imageURL);
     }
 }

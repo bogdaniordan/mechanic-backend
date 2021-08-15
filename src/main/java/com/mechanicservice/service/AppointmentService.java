@@ -48,37 +48,6 @@ public class AppointmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Couldn't find appointment with mechanic id: " + id));
     }
 
-
-//    public Boolean carHasBeenRepaired(Long carId) {
-//        if (appointmentRepository.getAppointmentsByCar_Id(carId).isPresent()) {
-//            List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId).get();
-//            if (appointments.size() == 0) {
-//                return false;
-//            }
-//            LocalDate mostRecentDate = appointments.stream()
-//                    .map(date -> LocalDate.parse(date.getLocalDate()))
-//                    .max(LocalDate::compareTo)
-//                            .orElse(null);
-//            if (LocalDate.now().compareTo(mostRecentDate) >= 0)
-//            setCarStatus(carId, RepairedStatus.REPAIRED);
-//            return true;
-//        }
-//        return false;
-//    }
-
-//    public Boolean carHasBeenRepaired(Long carId) {
-//        List<Appointment> appointments = appointmentRepository.getAppointmentsByCar_Id(carId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Cannot find appointments for car with id: " + carId));
-//        for(Appointment appointment: appointments) {
-//            if (appointment.getAppointmentStatus() == AppointmentStatus.DONE) {
-//                carService.findById(carId).setRepairedstatus(RepairedStatus.REPAIRED);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
-
     public Appointment setStatus(Long id, AppointmentStatus appointmentStatus) {
         Appointment appointment = findById(id);
         if (appointmentStatus == AppointmentStatus.DONE) {

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -90,5 +91,11 @@ public class CustomerController {
     @GetMapping("/customer-by-name/{name}")
     public ResponseEntity<Customer> getByName(@PathVariable String name) {
         return new ResponseEntity<>(customerService.getCustomerByName(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/image/{customerId}/download")
+    public byte[] downloadImage(@PathVariable Long customerId) {
+        log.info("Fetching image for customer: " + customerId);
+        return customerService.downloadImage(customerId);
     }
 }
