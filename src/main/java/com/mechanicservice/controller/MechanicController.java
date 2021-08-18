@@ -5,8 +5,10 @@ import com.mechanicservice.service.MechanicService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -81,5 +83,16 @@ public class MechanicController {
     public byte[] downloadImage(@PathVariable Long mechanicId) {
         log.info("Fetching image for mechanic: " + mechanicId);
         return mechanicService.downloadImage(mechanicId);
+    }
+
+    @PostMapping(
+            path = "/image/upload/{mechanicId}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void uploadMechanicProfileImage(@PathVariable("mechanicId") Long mechanicId,
+                                           @RequestParam("file") MultipartFile file) {
+        log.info("Uploading image for mechanic with id: " + mechanicId);
+        mechanicService.uploadMechanicProfileImage(mechanicId, file);
     }
 }

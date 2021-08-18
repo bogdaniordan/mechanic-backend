@@ -103,7 +103,7 @@ public class CustomerController {
     }
 
     @PostMapping(
-            path = "{customerId}/image/upload",
+            path = "/image/upload/{customerId}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

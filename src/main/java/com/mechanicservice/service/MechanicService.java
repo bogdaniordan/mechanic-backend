@@ -3,13 +3,21 @@ package com.mechanicservice.service;
 import com.mechanicservice.aws.BucketName;
 import com.mechanicservice.aws.FileStore;
 import com.mechanicservice.dto.ServiceTypeDTO;
+import com.mechanicservice.model.Customer;
 import com.mechanicservice.model.Mechanic;
 import com.mechanicservice.model.ServiceType;
 import com.mechanicservice.repository.MechanicRepository;
+import com.mechanicservice.util.FileChecker;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -133,4 +141,23 @@ public class MechanicService {
         String imageURL = findById(mechanicId).getPicture();
         return fileStore.download(path, imageURL);
     }
+
+
+    public void uploadMechanicProfileImage(Long mechanicId, MultipartFile file) {
+        FileChecker.isFileEmpty(file);
+        FileChecker.isImage(file);
+        Mechanic mechanic = findById(mechanicId);
+        Map<String, String> metadata = FileChecker.extractMetadata(file);
+        String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), mechanic.getId());
+        String filename = file.getOriginalFilename();
+        try {
+            fileStore.save(path, filename, Optional.of(metadata), file.getInputStream());
+            mechanic.setPicture(filename);
+            mechanicRepository.save(mechanic);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+
 }

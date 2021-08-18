@@ -51,8 +51,8 @@ public class DataGenerator implements CommandLineRunner {
 //        mechanic3.addPicture("https://media.bzi.ro/unsafe/1060x600/smart/filters:contrast(3):format(jpeg):blur(1):quality(80)/http://www.bzi.ro/wp-content/uploads/1/257/Nicolae_Gutas.jpg");
 //        carService.assignMechanic(mechanic);
         List<String> lst = List.of("ROLE_USER");
-        User user = new User("bogdan", "iordan" , "bogdan", BCrypt.hashpw("1234", BCrypt.gensalt(12)), lst);
-        User otherUser = new User("becali", "gigi", "becali", BCrypt.hashpw("steaua", BCrypt.gensalt(12)), lst);
+        User user = new User("Bogdan", "Iordan" , "bogdan", BCrypt.hashpw("1234", BCrypt.gensalt(12)), lst);
+        User otherUser = new User("George", "Becali", "becali", BCrypt.hashpw("steaua", BCrypt.gensalt(12)), lst);
         customer.setUser(user);
         otherCustomer.setUser(otherUser);
         Testimonial testimonial = new Testimonial(Rating.VERY_SATISFIED, "Nu bate nu troncane sa moaara mama", ServiceType.OIL_CHANGE);

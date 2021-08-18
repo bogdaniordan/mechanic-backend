@@ -6,6 +6,7 @@ import com.mechanicservice.model.Customer;
 import com.mechanicservice.model.User;
 import com.mechanicservice.repository.CustomerRepository;
 import com.mechanicservice.repository.UserRepository;
+import com.mechanicservice.util.FileChecker;
 import lombok.AllArgsConstructor;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,6 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final UserRepository userRepository;
     private final FileStore fileStore;
-    private final CustomerService customerService;
 
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
@@ -112,15 +112,15 @@ public class CustomerService {
 
     public void uploadUserProfileImage(Long customerId, MultipartFile file) {
         // 1. Check if image is not empty
-        isFileEmpty(file);
+        FileChecker.isFileEmpty(file);
         // 2. If file is an image
-        isImage(file);
+        FileChecker.isImage(file);
 
         // 3. The user exists in our database
-        Customer customer = customerService.findById(customerId);
+        Customer customer = findById(customerId);
 
         // 4. Grab some metadata from file if any
-        Map<String, String> metadata = extractMetadata(file);
+        Map<String, String> metadata = FileChecker.extractMetadata(file);
 
         // 5. Store the image in s3 and update database (userProfileImageLink) with s3 image link
         String path = String.format("%s/%s", BucketName.PROFILE_IMAGE.getBucketName(), customer.getId());
@@ -132,29 +132,6 @@ public class CustomerService {
             customerRepository.save(customer);
         } catch (IOException e) {
             throw new IllegalStateException(e);
-        }
-
-    }
-
-    private Map<String, String> extractMetadata(MultipartFile file) {
-        Map<String, String> metadata = new HashMap<>();
-        metadata.put("Content-Type", file.getContentType());
-        metadata.put("Content-Length", String.valueOf(file.getSize()));
-        return metadata;
-    }
-
-    private void isImage(MultipartFile file) {
-        if (!Arrays.asList(
-                IMAGE_JPEG.getMimeType(),
-                IMAGE_PNG.getMimeType(),
-                IMAGE_GIF.getMimeType()).contains(file.getContentType())) {
-            throw new IllegalStateException("File must be an image [" + file.getContentType() + "]");
-        }
-    }
-
-    private void isFileEmpty(MultipartFile file) {
-        if (file.isEmpty()) {
-            throw new IllegalStateException("Cannot upload empty file [ " + file.getSize() + "]");
         }
     }
 }

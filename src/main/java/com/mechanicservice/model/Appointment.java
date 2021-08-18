@@ -25,6 +25,7 @@ public class Appointment {
     private String localDate;
     private String time;
     private String notes;
+    private int durationInDays;
     @Enumerated(EnumType.STRING)
     private AppointmentStatus appointmentStatus = AppointmentStatus.NEW;
     @ManyToOne
@@ -41,7 +42,7 @@ public class Appointment {
         this.localDate = localDate;
         this.time = time;
         this.notes = notes;
-        price = requiredservice.price;
+        price = requiredservice.getPrice();
     }
 
     public void addMessage(Message message) {

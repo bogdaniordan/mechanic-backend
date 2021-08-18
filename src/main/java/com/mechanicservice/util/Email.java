@@ -44,7 +44,7 @@ public class Email {
             message.setFrom(new InternetAddress(myEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             message.setSubject("Welcome to PetBox !");
-            message.setText("Hello " + customer.getName() +  " and thank you for using Nea Bebe car services, you have an appointment with " +appointment.getMechanic() + " for the following service: " + appointment.getRequiredservice().upperCaseName);
+            message.setText("Hello " + customer.getName() +  " and thank you for using Nea Bebe car services, you have an appointment with " +appointment.getMechanic() + " for the following service: " + appointment.getRequiredservice().getUpperCaseName());
             return message;
         } catch (Exception e) {
             System.out.println("error");
